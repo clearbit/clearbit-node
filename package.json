@@ -31,6 +31,7 @@
     "gulp": "3",
     "gulp-istanbul": "0.3",
     "gulp-jshint": "1",
+    "gulp-load-plugins": "0.7",
     "gulp-mocha": "1",
     "jshint-stylish": "1",
     "mocha": "1",
