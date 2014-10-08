@@ -1,0 +1,24 @@
+{
+  "name": "clearbit-node",
+  "version": "1.0.0",
+  "description": "Client for Clearbit.co business intelligence APIs",
+  "main": "./src",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bendrucker/clearbit-node.git"
+  },
+  "keywords": [
+    "clearbit",
+    "client",
+    "email"
+  ],
+  "author": "Ben Drucker <bvdrucker@gmail.com> (http://www.bendrucker.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bendrucker/clearbit-node/issues"
+  },
+  "homepage": "https://github.com/bendrucker/clearbit-node"
+}
