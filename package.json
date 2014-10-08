@@ -20,5 +20,20 @@
   "bugs": {
     "url": "https://github.com/bendrucker/clearbit-node/issues"
   },
-  "homepage": "https://github.com/bendrucker/clearbit-node"
+  "homepage": "https://github.com/bendrucker/clearbit-node",
+  "dependencies": {
+    "bluebird": "2",
+    "create-error": "0.3",
+    "needle": "0.7"
+  },
+  "devDependencies": {
+    "chai": "1",
+    "gulp": "3",
+    "gulp-istanbul": "0.3",
+    "gulp-jshint": "1",
+    "gulp-mocha": "1",
+    "jshint-stylish": "1",
+    "mocha": "1",
+    "sinon": "1"
+  }
 }
