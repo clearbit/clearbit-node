@@ -1,8 +1,11 @@
 'use strict';
 
-var assert = require('assert');
-var util   = require('util');
-var _      = require('lodash');
+var assert  = require('assert');
+var util    = require('util');
+var _       = require('lodash');
+var Promise = require('bluebird');
+var needle  = Promise.promisifyAll(require('needle'));
+var pkg     = require('../package.json');
 
 function ClearbitClient (config) {
   config = config || {};
@@ -13,7 +16,7 @@ function ClearbitClient (config) {
 
 var base = 'https://%s%s.clearbit.co/v%s';
 ClearbitClient.prototype.base = function (options) {
-  options = _.defaults(options || {}, {
+  options = _.defaults(options, {
     version: '1',
     stream: false
   });
@@ -24,6 +27,32 @@ ClearbitClient.prototype.base = function (options) {
     options.stream ? '-stream' : '',
     options.version
   ]);
+};
+
+ClearbitClient.prototype.url = function (options) {
+  _.defaults(options, {
+    path: ''
+  });
+  return this.base(options) + options.path;
+}
+
+ClearbitClient.prototype.request = function (options) {
+  options = _.defaults(options || {}, {
+    method: 'get',
+    data: null
+  });
+  return needle.requestAsync(
+    options.method,
+    this.url(options),
+    options.data,
+    {
+      username: this.key,
+      user_agent: 'ClearbitNode/v' + pkg.version
+    }
+  )
+  .spread(function (response) {
+    return response;
+  });
 };
 
 module.exports = ClearbitClient;
