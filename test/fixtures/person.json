@@ -1,0 +1,72 @@
+{
+  "id": "d54c54ad-40be-4305-8a34-0ab44710b90d",
+  "name": {
+    "fullName": "Alex MacCaw",
+    "givenName": "Alex",
+    "familyName": "MacCaw"
+  },
+  "email": "alex@alexmaccaw.com",
+  "gender": "male",
+  "location": "San Francisco",
+  "bio": "O'Reilly author, software engineer & traveller. Founder of https://clearbit.co",
+  "site": "http://alexmaccaw.com",
+  "avatar": "https://pbs.twimg.com/profile_images/1826201101/297606_10150904890650705_570400704_21211347_1883468370_n.jpeg",
+  "employment": {
+    "name": "Clearbit",
+    "title": "CEO",
+    "domain": "clearbit.co"
+  },
+  "facebook": {
+    "handle": "amaccaw"
+  },
+  "github": {
+    "handle": "maccman",
+    "avatar": "http://www.gravatar.com/avatar/baf018e2cc4616e4776d323215c7136c",
+    "company": "Freelance",
+    "blog": "http://alexmaccaw.com",
+    "followers": 2880,
+    "following": 94
+  },
+  "twitter": {
+    "handle": "maccaw",
+    "id": 2006261,
+    "bio": "O'Reilly author, software engineer & traveller. Founder of https://clearbit.co",
+    "followers": 14993,
+    "following": 1645,
+    "location": "San Francisco",
+    "site": "http://alexmaccaw.com",
+    "avatar": "https://pbs.twimg.com/profile_images/1826201101/297606_10150904890650705_570400704_21211347_1883468370_n.jpeg"
+  },
+  "linkedin": {
+    "handle": "pub/alex-maccaw/78/929/ab5"
+  },
+  "googleplus": {
+    "handle": null
+  },
+  "angellist": {
+    "handle": null,
+    "bio": null,
+    "blog": null,
+    "site": null,
+    "followers": null,
+    "avatar": null
+  },
+  "aboutme": {
+    "handle": "maccaw",
+    "bio": "Software engineer & traveller. Walker, skier, reader, tennis player, breather, ginger beer drinker, scooterer & generally enjoying things :)",
+    "avatar": "http://o.aolcdn.com/dims-global/dims/ABOUTME/5/803/408/80/http://d3mod6n032mdiz.cloudfront.net/thumb2/m/a/c/maccaw/maccaw-840x560.jpg"
+  },
+  "gravatar": {
+    "handle": "maccman",
+    "urls": [
+
+    ],
+    "avatar": "http://2.gravatar.com/avatar/994909da96d3afaf4daaf54973914b64",
+    "avatars": [
+      {
+        "url": "http://2.gravatar.com/avatar/994909da96d3afaf4daaf54973914b64",
+        "type": "thumbnail"
+      }
+    ]
+  }
+}
