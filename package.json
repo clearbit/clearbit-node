@@ -36,7 +36,8 @@
     "gulp-mocha": "1",
     "jshint-stylish": "1",
     "mocha": "1",
+    "nock": "0.42",
     "sinon": "1",
-    "nock": "0.42"
+    "yargs": "1"
   }
 }
