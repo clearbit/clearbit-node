@@ -18,6 +18,17 @@ describe('Person', function () {
     mock.done();
   });
 
+  describe('#pending', function () {
+
+    it('identifies whether the person has an id', function () {
+      var person = new Person();
+      expect(person.pending()).to.be.true;
+      person.id = 'foo';
+      expect(person.pending()).to.be.false;
+    });
+
+  });
+
   describe('Person#find', function () {
 
     it('can find a person by email', function () {

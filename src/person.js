@@ -8,6 +8,10 @@ module.exports = function (client) {
     _.extend(this, data);
   }
 
+  Person.prototype.pending = function () {
+    return !this.id;
+  };
+
   Person.find = function (options) {
     assert(options && options.email, 'An email must be provided');
     return this.client.request(_.extend({
