@@ -38,12 +38,13 @@ ClearbitClient.prototype.url = function (options) {
 
 ClearbitClient.prototype.request = function (options) {
   options = _.defaults(options || {}, {
-    method: 'get'
+    method: 'get',
+    query: {}
   });
   return needle.requestAsync(
     options.method,
     this.url(options),
-    options.query,
+    !_.isEmpty(options.query) ? options.query : void 0,
     {
       username: this.key,
       user_agent: 'ClearbitNode/v' + pkg.version
