@@ -12,7 +12,7 @@ function ClearbitClient (config) {
   assert(this instanceof ClearbitClient, 'Client must be called with new');
   assert(!!config.key, 'An API key must be provided');
   this.key = config.key;
-};
+}
 
 var base = 'https://%s%s.clearbit.co/v%s';
 ClearbitClient.prototype.base = function (options) {
@@ -34,17 +34,16 @@ ClearbitClient.prototype.url = function (options) {
     path: ''
   });
   return this.base(options) + options.path;
-}
+};
 
 ClearbitClient.prototype.request = function (options) {
   options = _.defaults(options || {}, {
-    method: 'get',
-    data: null
+    method: 'get'
   });
   return needle.requestAsync(
     options.method,
     this.url(options),
-    options.data,
+    options.query,
     {
       username: this.key,
       user_agent: 'ClearbitNode/v' + pkg.version

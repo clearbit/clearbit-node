@@ -86,6 +86,19 @@ describe('ClearbitClient', function () {
       });
     });
 
+    it('can generate a qs', function () {
+      mock
+        .get('/v1/people/email/bvdrucker@gmail.com?webhook_id=123')
+        .reply(202);
+      return client.request({
+        api: 'person',
+        path: '/people/email/bvdrucker@gmail.com',
+        query: {
+          webhook_id: '123'
+        }
+      });
+    });
+
     it('sends a basic auth header', function () {
       mock
         .get('/v1/people/email/bvdrucker@gmail.com')
