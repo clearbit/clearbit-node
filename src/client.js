@@ -44,14 +44,16 @@ ClearbitClient.prototype.request = function (options) {
   return needle.requestAsync(
     options.method,
     this.url(options),
-    !_.isEmpty(options.query) ? options.query : void 0,
+    _.isEmpty(options.query) ? void 0 : _.extend({
+      webhook_id: options.webhook_id
+    }, options.query),
     {
       username: this.key,
       user_agent: 'ClearbitNode/v' + pkg.version
     }
   )
   .spread(function (response) {
-    return response;
+    return response.body;
   });
 };
 
