@@ -71,7 +71,7 @@ describe('ClearbitClient', function () {
     before(function () {
       mock = nock('https://person.clearbit.co');
     });
-    after(nock.restore);
+    after(nock.cleanAll);
     afterEach(function () {
       mock.done();
     });
