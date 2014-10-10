@@ -44,6 +44,20 @@ describe('Person', function () {
         });
     });
 
+    it('can subscribe to a person', function () {
+      mock
+        .get('/v1/people/email/alex@alexmaccaw.com?subscribe=true')
+        .reply(200);
+      return Person.find({email: 'alex@alexmaccaw.com', subscribe: true});
+    });
+
+    it('can override the company setting', function () {
+      mock
+        .get('/v1/people/email/alex@alexmaccaw.com?company=false')
+        .reply(200);
+      return Person.find({email: 'alex@alexmaccaw.com', company: false});
+    });
+
   });
 
 });
