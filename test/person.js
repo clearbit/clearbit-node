@@ -31,8 +31,9 @@ describe('Person', function () {
 
   describe('Person#find', function () {
 
+    var alex = require('./fixtures/person');
+
     it('can find a person by email', function () {
-      var alex = require('./fixtures/person');
       mock
         .get('/v1/people/email/alex@alexmaccaw.com')
         .reply(200, alex);
@@ -47,15 +48,25 @@ describe('Person', function () {
     it('can subscribe to a person', function () {
       mock
         .get('/v1/people/email/alex@alexmaccaw.com?subscribe=true')
-        .reply(200);
+        .reply(200, alex);
       return Person.find({email: 'alex@alexmaccaw.com', subscribe: true});
     });
 
     it('can override the company setting', function () {
       mock
         .get('/v1/people/email/alex@alexmaccaw.com?company=false')
-        .reply(200);
+        .reply(200, alex);
       return Person.find({email: 'alex@alexmaccaw.com', company: false});
+    });
+
+    it('is can handle pending requests', function () {
+      mock
+        .get('/v1/people/email/alex@alexmaccaw.com')
+        .reply(202);
+      return Person.find({email: 'alex@alexmaccaw.com'})
+        .then(function (person) {
+          expect(person.pending()).to.be.true;
+        });
     });
 
   });
