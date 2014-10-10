@@ -39,7 +39,7 @@ ClearbitClient.prototype.url = function (options) {
   return this.base(options) + options.path;
 };
 
-function generateQuery (objects) {
+function generateQuery () {
   var query = _.omit(_.extend.apply(_, [{}].concat([].slice.apply(arguments))), _.isUndefined);
   return _.isEmpty(query) ? undefined : query;
 }
