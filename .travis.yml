@@ -4,7 +4,9 @@ node_js:
 - '0.10'
 before_script:
 - export PATH="$PATH:$(npm bin)"
+script:
 - gulp lint
+- npm test
 deploy:
   provider: npm
   email: bvdrucker@gmail.com
