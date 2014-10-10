@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '0.11'
+- '0.10'
+deploy:
+  provider: npm
+  email: bvdrucker@gmail.com
+  api_key:
+    secure: GQqARs7Cus12AWQ29b/5uKfFD1+DPFF67kzCEuNhgmax7ITzE0O4FuucaO8JqB7JReoozvbN21QmC0M4zouB/+rcMd3H9h2aAUYMflT1Hr2wgGGJoB1sshTwZ8AQ25s76neOjhGwV8g+5asXS0AOhXPosXOVE6+KdvuXXbMc7xQ=
+  on:
+    tags: true
+    all_branches: true
+    repo: bendrucker/clearbit-node
