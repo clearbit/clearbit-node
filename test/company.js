@@ -42,7 +42,7 @@ describe('Company', function () {
         });
     });
 
-    it('is can handle pending requests', function () {
+    it('can handle pending requests', function () {
       mock
         .get('/v1/companies/domain/uber.com')
         .reply(202);

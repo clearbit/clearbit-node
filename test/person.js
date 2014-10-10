@@ -56,7 +56,7 @@ describe('Person', function () {
       return Person.find({email: 'alex@alexmaccaw.com', company: false});
     });
 
-    it('is can handle pending requests', function () {
+    it('can handle pending requests', function () {
       mock
         .get('/v1/people/email/alex@alexmaccaw.com')
         .reply(202);
