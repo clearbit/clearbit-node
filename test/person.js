@@ -3,11 +3,9 @@
 var expect = require('chai').expect;
 var nock   = require('nock');
 var Client = require('../src/client');
+var Person = new Client({key: 'k'}).Person;
 
 describe('Person', function () {
-
-  var client = new Client({key: 'k'});
-  var Person = require('../src/person')(client);
 
   var mock;
   before(function () {

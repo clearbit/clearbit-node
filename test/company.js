@@ -1,13 +1,11 @@
 'use strict';
 
-var expect = require('chai').expect;
-var nock   = require('nock');
-var Client = require('../src/client');
+var expect  = require('chai').expect;
+var nock    = require('nock');
+var Client  = require('../src/client');
+var Company = new Client({key: 'k'}).Company;
 
 describe('Company', function () {
-
-  var client = new Client({key: 'k'});
-  var Company = require('../src/company')(client);
 
   var mock;
   before(function () {

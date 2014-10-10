@@ -12,6 +12,9 @@ function ClearbitClient (config) {
   assert(this instanceof ClearbitClient, 'Client must be called with new');
   assert(!!config.key, 'An API key must be provided');
   this.key = config.key;
+
+  this.Person = require('./person')(this);
+  this.Company = require('./company')(this);
 }
 
 var base = 'https://%s%s.clearbit.co/v%s';
