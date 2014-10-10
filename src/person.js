@@ -3,7 +3,7 @@
 var assert  = require('assert');
 var _       = require('lodash');
 var Promise = require('bluebird');
-var utils   = require('./utils')
+var utils   = require('./utils');
 
 module.exports = function (client) {
   function Person (data) {
@@ -21,7 +21,7 @@ module.exports = function (client) {
     }, options))
     .bind(this)
     .then(utils.cast)
-    .catch(utils.isUnknownRecord, function (err) {
+    .catch(utils.isUnknownRecord, function () {
       throw new this.NotFoundError('Person not found');
     });
   });

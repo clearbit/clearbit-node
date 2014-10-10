@@ -20,7 +20,7 @@ module.exports = function (client) {
     }, options))
     .bind(this)
     .then(utils.cast)
-    .catch(utils.isUnknownRecord, function (err) {
+    .catch(utils.isUnknownRecord, function () {
       throw new this.NotFoundError('Company not found');
     });
   });
