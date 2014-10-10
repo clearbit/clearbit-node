@@ -36,6 +36,11 @@ ClearbitClient.prototype.url = function (options) {
   return this.base(options) + options.path;
 };
 
+function generateQuery (objects) {
+  var query = _.pick(_.extend.apply(_, [{}].concat([].slice.apply(arguments))), _.identity);
+  return _.isEmpty(query) ? undefined : query;
+}
+
 ClearbitClient.prototype.request = function (options) {
   options = _.defaults(options || {}, {
     method: 'get',
@@ -44,7 +49,7 @@ ClearbitClient.prototype.request = function (options) {
   return needle.requestAsync(
     options.method,
     this.url(options),
-    _.isEmpty(options.query) ? void 0 : _.extend({
+    generateQuery({
       webhook_id: options.webhook_id
     }, options.query),
     {
