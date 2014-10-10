@@ -1,34 +1,33 @@
 'use strict';
 
-var expect         = require('chai').expect;
-var nock           = require('nock');
-var ClearbitClient = require('../src/client');
-var pkg            = require('../package.json');
+var expect   = require('chai').expect;
+var nock     = require('nock');
+var clearbit = require('../');
+var Client   = clearbit.Client;
+var pkg      = require('../package.json');
 
-describe('ClearbitClient', function () {
+describe('Client', function () {
 
   var client;
   beforeEach(function () {
-    client = new ClearbitClient({
-      key: 'k'
-    });
+    client = clearbit('k');
   });
 
   describe('Constructor', function () {
 
     it('must be called with new', function () {
-      expect(ClearbitClient).to.throw(/called with new/);
+      expect(Client).to.throw(/called with new/);
     });
 
     it('must provide an API key', function () {
       expect(function () {
-        return new ClearbitClient();
+        return new Client();
       })
       .to.throw(/API key/);
     });
 
     it('configures the API key', function () {
-      expect(new ClearbitClient({key: 'k'})).to.have.property('key', 'k');
+      expect(new Client({key: 'k'})).to.have.property('key', 'k');
     });
 
   });

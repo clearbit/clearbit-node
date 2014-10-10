@@ -2,8 +2,7 @@
 
 var expect = require('chai').expect;
 var nock   = require('nock');
-var Client = require('../src/client');
-var Person = new Client({key: 'k'}).Person;
+var Person = require('../')('k').Person;
 
 describe('Person', function () {
 
