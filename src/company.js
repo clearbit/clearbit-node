@@ -1,7 +1,8 @@
 'use strict';
 
-var assert = require('assert');
-var _      = require('lodash');
+var assert  = require('assert');
+var _       = require('lodash');
+var Promise = require('bluebird');
 
 module.exports = function (client) {
   function Company (data) {
@@ -12,7 +13,7 @@ module.exports = function (client) {
     return !this.id;
   };
 
-  Company.find = function (options) {
+  Company.find = Promise.method(function (options) {
     assert(options && options.domain, 'A domain must be provided');
     return this.client.request(_.extend({
       api: 'company',
@@ -22,7 +23,7 @@ module.exports = function (client) {
     .then(function (data) {
       return new this(data);
     });
-  };
+  });
 
   Company.prototype.client = Company.client = client;
 

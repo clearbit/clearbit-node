@@ -1,7 +1,8 @@
 'use strict';
 
-var assert = require('assert');
-var _      = require('lodash');
+var assert  = require('assert');
+var _       = require('lodash');
+var Promise = require('bluebird');
 
 module.exports = function (client) {
   function Person (data) {
@@ -12,7 +13,7 @@ module.exports = function (client) {
     return !this.id;
   };
 
-  Person.find = function (options) {
+  Person.find = Promise.method(function (options) {
     assert(options && options.email, 'An email must be provided');
     return this.client.request(_.extend({
       api: 'person',
@@ -23,7 +24,7 @@ module.exports = function (client) {
     .then(function (data) {
       return new this(data);
     });
-  };
+  });
 
   Person.prototype.client = Person.client = client;
 
