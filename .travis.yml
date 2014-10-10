@@ -7,6 +7,9 @@ before_script:
 script:
 - gulp lint
 - npm test
+after_script:
+- npm install -g codeclimate-test-reporter
+- codeclimate < ./coverage/lcov.info
 deploy:
   provider: npm
   email: bvdrucker@gmail.com
@@ -16,3 +19,6 @@ deploy:
     tags: true
     all_branches: true
     repo: bendrucker/clearbit-node
+env:
+  global:
+    secure: CHoeYn6R9p4vQ96KkysrCSIiN7J0EU1x1jNuevgYVgVol+b5ukvDVUBTaSEzeSznuCotrZdhPp6/CQNELMDJowTXUgbwdp7FUPss5Bp5WjMJHt+YIUw3vjaeucPawX2uzVyNjFY2pCG2IDl13LAvDEWuqMvB6NboX9uBFpW8ah0=
