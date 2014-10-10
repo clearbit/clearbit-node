@@ -52,6 +52,18 @@ describe('Company', function () {
         });
     });
 
+    it('can handle unknown records', function () {
+      mock
+        .get('/v1/companies/domain/nonexistent.co')
+        .reply(404, {
+          error: {
+            type: 'unknown_record'
+          }
+        });
+      return expect(Company.find({domain: 'nonexistent.co'}))
+        .to.be.rejectedWith(Company.NotFoundError);
+    });
+
   });
 
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-var expect = require('chai').expect;
+var expect = require('chai').use(require('chai-as-promised')).expect;
 var nock   = require('nock');
 var Person = require('../')('k').Person;
 
@@ -64,6 +64,18 @@ describe('Person', function () {
         .then(function (person) {
           expect(person.pending()).to.be.true;
         });
+    });
+
+    it('can handle unknown records', function () {
+      mock
+        .get('/v1/people/email/bademail@unknown.com')
+        .reply(404, {
+          error: {
+            type: 'unknown_record'
+          }
+        });
+      return expect(Person.find({email: 'bademail@unknown.com'}))
+        .to.be.rejectedWith(Person.NotFoundError);
     });
 
   });

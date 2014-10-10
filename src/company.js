@@ -3,15 +3,14 @@
 var assert  = require('assert');
 var _       = require('lodash');
 var Promise = require('bluebird');
+var utils   = require('./utils');
 
 module.exports = function (client) {
   function Company (data) {
     _.extend(this, data);
   }
 
-  Company.prototype.pending = function () {
-    return !this.id;
-  };
+  Company.prototype.pending = utils.pending;
 
   Company.find = Promise.method(function (options) {
     assert(options && options.domain, 'A domain must be provided');
@@ -20,12 +19,14 @@ module.exports = function (client) {
       path: '/companies/domain/' + options.domain
     }, options))
     .bind(this)
-    .then(function (data) {
-      return new this(data);
+    .then(utils.cast)
+    .catch(utils.isUnknownRecord, function (err) {
+      throw new this.NotFoundError('Company not found');
     });
   });
 
   Company.prototype.client = Company.client = client;
+  Company.NotFoundError = utils.NotFoundError;
 
   return Company;
 };
