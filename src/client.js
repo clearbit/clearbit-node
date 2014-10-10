@@ -56,6 +56,7 @@ ClearbitClient.prototype.request = function (options) {
       webhook_id: options.webhook_id
     }, options.query),
     {
+      timeout: options.stream ? 60000 : 5000,
       username: this.key,
       user_agent: 'ClearbitNode/v' + pkg.version
     }

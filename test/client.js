@@ -2,6 +2,8 @@
 
 var expect   = require('chai').expect;
 var nock     = require('nock');
+var sinon    = require('sinon');
+var needle   = require('needle');
 var clearbit = require('../');
 var Client   = clearbit.Client;
 var pkg      = require('../package.json');
@@ -96,6 +98,21 @@ describe('Client', function () {
           webhook_id: '123'
         }
       });
+    });
+
+    it('uses a timeout of 60 seconds for streaming requests', function () {
+      sinon.stub(needle, 'request').yieldsAsync(null, {}, undefined);
+      return client.request({
+        api: 'person',
+        stream: true
+      })
+      .then(function () {
+        expect(needle.request.firstCall.args[3])
+          .to.have.property('timeout', 60000);
+      })
+      .finally(function () {
+        needle.request.restore();
+      })
     });
 
     it('sends a basic auth header', function () {
