@@ -6,7 +6,7 @@ Node library for querying the [Clearbit](https://clearbit.co) business intellige
 * [Person API](https://clearbit.co/docs#person-api)
 * [Company API](https://clearbit.co/docs#company-api)
 
-# Setup
+## Setup
 ```bash
 $ npm install clearbit
 ```
@@ -17,7 +17,9 @@ var Client   = require('clearbit').Client;
 var clearbit = new Client({key: 'api_key'});
 ```
 
-## Person
+## Performing Lookups
+
+### Person
 
 #### `Person.find(options)` -> `Promise`
   * `email` *String*: The email address to look up **(required)**
@@ -45,7 +47,7 @@ Person.find({email: 'email@domain.com'})
 #### `person.pending()` -> `Boolean`
 If Clearbit responds with a `202` status indicating that lookup has been queued, `person.pending` returns `true`.
 
-## Company
+### Company
 
 #### `Company.find(options)` -> `Promise`
   * `domain` *String*: The company domain to look up **(required)**
@@ -70,3 +72,29 @@ Company.find({domain: 'www.uber.com'})
 
 #### `company.pending()` -> `Boolean`
 If Clearbit responds with a `202` status indicating that lookup has been queued, `company.pending` returns `true`.
+
+### Error Handling
+Lookups return [Bluebird](https://github.com/petkaantonov/bluebird) promises. Any status code >=400 will trigger an error, including lookups than do not return a result. You can easily filter out unknown records from true errors using [Bluebird's error class matching](https://github.com/petkaantonov/bluebird/blob/master/API.md#catchfunction-errorclassfunction-predicate-function-handler---promise):
+
+```js
+Person.find({email: 'notfound@example.com'})
+  .catch(Person.NotFoundError, function () {
+    // handle an unknown record
+  })
+  .catch(function () {
+    // handle other errors
+  });
+```
+
+### Callbacks
+If you really want to use node-style callbacks, use [Bluebird's nodeify method](https://github.com/petkaantonov/bluebird/blob/master/API.md#nodeifyfunction-callback--object-options---promise):
+
+```js
+Person.find({email: 'email@domain.com'}).nodeify(function (err, person) {
+  if (err) {
+    // handle
+  }
+  else {
+    // person
+  }
+});
