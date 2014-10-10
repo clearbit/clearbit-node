@@ -42,7 +42,7 @@ function generateQuery (objects) {
 }
 
 ClearbitClient.prototype.request = function (options) {
-  options = _.defaults(options || {}, {
+  options = _.defaults(options || /* istanbul ignore next */ {}, {
     method: 'get',
     query: {}
   });
