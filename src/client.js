@@ -57,9 +57,7 @@ ClearbitClient.prototype.request = function (options) {
       user_agent: 'ClearbitNode/v' + pkg.version
     }
   )
-  .spread(function (response) {
-    return response.body;
-  });
+  .get(1);
 };
 
 module.exports = ClearbitClient;
