@@ -1,11 +1,13 @@
 'use strict';
 
-var assert  = require('assert');
-var util    = require('util');
-var _       = require('lodash');
-var Promise = require('bluebird');
-var needle  = Promise.promisifyAll(require('needle'));
-var pkg     = require('../package.json');
+var assert      = require('assert');
+var util        = require('util');
+var _           = require('lodash');
+var Promise     = require('bluebird');
+var createError = require('create-error');
+var http        = require('http');
+var needle      = Promise.promisifyAll(require('needle'));
+var pkg         = require('../package.json');
 
 function ClearbitClient (config) {
   config = config || {};
@@ -61,7 +63,22 @@ ClearbitClient.prototype.request = function (options) {
       user_agent: 'ClearbitNode/v' + pkg.version
     }
   )
-  .get(1);
+  .bind(this)
+  .spread(function (response, body) {
+    if (response.statusCode >= 400) {
+      var message = body.error ? body.error.message : http.STATUS_CODES[response.statusCode] || 'Unknown';
+      throw _.extend(new this.ClearbitError(message), {
+        type: body.error ? body.error.type : 'unknown',
+        body: body,
+        statusCode: response.statusCode
+      });
+    }
+    else {
+      return body;
+    }
+  });
 };
+
+ClearbitClient.ClearbitError = ClearbitClient.prototype.ClearbitError = createError('ClearbitError');
 
 module.exports = ClearbitClient;

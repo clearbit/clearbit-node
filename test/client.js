@@ -1,6 +1,6 @@
 'use strict';
 
-var expect   = require('chai').expect;
+var expect   = require('chai').use(require('chai-as-promised')).expect;
 var nock     = require('nock');
 var sinon    = require('sinon');
 var needle   = require('needle');
@@ -135,6 +135,56 @@ describe('Client', function () {
         api: 'person',
         path: '/people/email/bvdrucker@gmail.com'
       });
+    });
+
+    it('can handle JSON response errors', function () {
+      mock
+        .get('/v1/people/email/fakeperson@baddomain.com')
+        .reply(404, {
+          error: {
+            type: 'unknown_record',
+            message: 'Person not found'
+          }
+        });
+      return expect(client.request({
+        api: 'person',
+        path: '/people/email/fakeperson@baddomain.com'
+      }))
+      .to.be.rejected
+      .then(function (err) {
+        expect(err).to.be.an.instanceOf(Client.ClearbitError);
+        expect(err.type).to.equal('unknown_record');
+        expect(err.message).to.equal('Person not found');
+        expect(err.body).to.deep.equal({
+          error: {
+            type: 'unknown_record',
+            message: 'Person not found'
+          }
+        });
+        expect(err.statusCode).to.equal(404);
+      });
+    });
+
+    it('can handle generic response errors', function () {
+      mock
+        .get('/v1/people/badpath')
+        .reply(404);
+      return expect(client.request({
+        api: 'person',
+        path: '/people/badpath'
+      }))
+      .to.be.rejectedWith('Not Found');
+    });
+
+    it('can handle unknown errors', function () {
+      mock
+        .get('/v1')
+        .reply(600);
+      return expect(client.request({
+        api: 'person',
+        path: ''
+      }))
+      .to.be.rejectedWith('Unknown');
     });
 
   });

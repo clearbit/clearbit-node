@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "chai": "1",
+    "chai-as-promised": "4",
     "gulp": "3",
     "gulp-istanbul": "0.3",
     "gulp-jshint": "1",
