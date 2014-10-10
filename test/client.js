@@ -112,7 +112,7 @@ describe('Client', function () {
       })
       .finally(function () {
         needle.request.restore();
-      })
+      });
     });
 
     it('sends a basic auth header', function () {
