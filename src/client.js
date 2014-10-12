@@ -60,6 +60,7 @@ ClearbitClient.prototype.request = function (options) {
     {
       timeout: options.stream ? 60000 : 5000,
       username: this.key,
+      password: '',
       user_agent: 'ClearbitNode/v' + pkg.version
     }
   )
