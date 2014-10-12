@@ -1,5 +1,5 @@
 {
-  "name": "clearbit-node",
+  "name": "clearbit",
   "version": "1.0.0",
   "description": "Client for Clearbit.co business intelligence APIs",
   "main": "./src",
