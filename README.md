@@ -98,3 +98,4 @@ Person.find({email: 'email@domain.com'}).nodeify(function (err, person) {
     // person
   }
 });
+```
