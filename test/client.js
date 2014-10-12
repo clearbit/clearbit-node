@@ -118,7 +118,7 @@ describe('Client', function () {
     it('sends a basic auth header', function () {
       mock
         .get('/v1/people/email/bvdrucker@gmail.com')
-        .matchHeader('Authorization', 'Basic aw==')
+        .matchHeader('Authorization', 'Basic azo=')
         .reply(202);
       return client.request({
         api: 'person',
