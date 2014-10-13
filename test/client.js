@@ -80,7 +80,7 @@ describe('Client', function () {
     it('sends a get request to the specified endpoint', function () {
       mock
         .get('/v1/people/email/bvdrucker@gmail.com')
-        .reply(202);
+        .reply(200);
       return client.request({
         api: 'person',
         path: '/people/email/bvdrucker@gmail.com'
@@ -90,7 +90,7 @@ describe('Client', function () {
     it('can generate a qs', function () {
       mock
         .get('/v1/people/email/bvdrucker@gmail.com?webhook_id=123')
-        .reply(202);
+        .reply(200);
       return client.request({
         api: 'person',
         path: '/people/email/bvdrucker@gmail.com',
@@ -119,7 +119,7 @@ describe('Client', function () {
       mock
         .get('/v1/people/email/bvdrucker@gmail.com')
         .matchHeader('Authorization', 'Basic azo=')
-        .reply(202);
+        .reply(200);
       return client.request({
         api: 'person',
         path: '/people/email/bvdrucker@gmail.com'
@@ -130,7 +130,7 @@ describe('Client', function () {
       mock
         .get('/v1/people/email/bvdrucker@gmail.com')
         .matchHeader('User-Agent', 'ClearbitNode/v' + pkg.version)
-        .reply(202);
+        .reply(200);
       return client.request({
         api: 'person',
         path: '/people/email/bvdrucker@gmail.com'

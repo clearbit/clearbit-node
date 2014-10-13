@@ -15,17 +15,6 @@ describe('Company', function () {
     mock.done();
   });
 
-  describe('#pending', function () {
-
-    it('identifies whether the company has an id', function () {
-      var company = new Company();
-      expect(company.pending()).to.be.true;
-      company.id = 'foo';
-      expect(company.pending()).to.be.false;
-    });
-
-  });
-
   describe('Company#find', function () {
 
     var company = require('./fixtures/company');
@@ -42,14 +31,17 @@ describe('Company', function () {
         });
     });
 
-    it('can handle pending requests', function () {
+    it('can handle queued requests', function () {
+
       mock
         .get('/v1/companies/domain/uber.com')
-        .reply(202);
-      return Company.find({domain: 'uber.com'})
-        .then(function (company) {
-          expect(company.pending()).to.be.true;
+        .reply(202, {
+          error: {
+            type: 'queued'
+          }
         });
+      return Company.find({domain: 'uber.com'})
+        .to.be.rejectedWith(Company.QueuedError);
     });
 
     it('can handle unknown records', function () {

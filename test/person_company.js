@@ -15,17 +15,6 @@ describe('PersonCompany', function () {
     mock.done();
   });
 
-  describe('#pending', function () {
-
-    it('identifies whether the person has an id', function () {
-      var person = new PersonCompany();
-      expect(person.pending()).to.be.true;
-      person.id = 'foo';
-      expect(person.pending()).to.be.false;
-    });
-
-  });
-
   describe('PersonCompany#find', function () {
 
     var alex = require('./fixtures/person');
@@ -42,14 +31,16 @@ describe('PersonCompany', function () {
         });
     });
 
-    it('can handle pending requests', function () {
+    it('can handle queued requests', function () {
       mock
         .get('/v1/combined/email/alex@alexmaccaw.com')
-        .reply(202);
-      return PersonCompany.find({email: 'alex@alexmaccaw.com'})
-        .then(function (person) {
-          expect(person.pending()).to.be.true;
+        .reply(202, {
+          error: {
+            type: 'queued'
+          }
         });
+      return PersonCompany.find({email: 'alex@alexmaccaw.com'})
+        .to.be.rejectedWith(PersonCompany.QueuedError);
     });
 
   });

@@ -12,7 +12,7 @@ $ npm install clearbit
 ```
 ```js
 var clearbit = require('clearbit')('api_key');
-// or 
+// or
 var Client   = require('clearbit').Client;
 var clearbit = new Client({key: 'api_key'});
 ```
@@ -26,13 +26,13 @@ var clearbit = new Client({key: 'api_key'});
   * `webhook_id` *String*: Custom identifier for the webhook request
   * `subscribe` *Boolean*: Set to `true` to subscribe to the changes
   * `company` *Boolean*: Set to `true` to include a company lookup on the email’s domain name in the response
-  * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.co/docs?shell#streaming) instead of webhooks 
+  * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.co/docs?shell#streaming) instead of webhooks
 
 ```js
 var Person = clearbit.Person;
 Person.find({email: 'email@domain.com'})
   .then(function (person) {
-    if (!person.pending()) {
+    if (!person.isPending()) {
       console.log('Name: ', person.name.fullName);
     }
   })
@@ -44,21 +44,18 @@ Person.find({email: 'email@domain.com'})
   });
 ```
 
-#### `person.pending()` -> `Boolean`
-If Clearbit responds with a `202` status indicating that lookup has been queued, `person.pending` returns `true`.
-
 ### Company
 
 #### `Company.find(options)` -> `Promise`
   * `domain` *String*: The company domain to look up **(required)**
   * `webhook_id` *String*: Custom identifier for the webhook request
-  * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.co/docs?shell#streaming) instead of webhooks 
+  * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.co/docs?shell#streaming) instead of webhooks
 
 ```js
 var Company = clearbit.Company;
 Company.find({domain: 'www.uber.com'})
   .then(function (company) {
-    if (!company.pending()) {
+    if (!company.isPending()) {
       console.log('Name: ', company.name);
     }
   })
@@ -70,8 +67,18 @@ Company.find({domain: 'www.uber.com'})
   });
 ```
 
-#### `company.pending()` -> `Boolean`
-If Clearbit responds with a `202` status indicating that lookup has been queued, `company.pending` returns `true`.
+### Queued Handling
+
+If Clearbit responds with a `202` status indicating that lookup has been queued, then a `QueuedError` will be thrown. You can catch this like so:
+
+```js
+Person.find({email: 'notqueued@example.com'})
+  .catch(Person.QueuedError, function () {
+    // Record has been queued
+  })
+```
+
+If long-lived requests are not a problem for you you can avoid queuing errors by using our streaming API.
 
 ### Error Handling
 Lookups return [Bluebird](https://github.com/petkaantonov/bluebird) promises. Any status code >=400 will trigger an error, including lookups than do not return a result. You can easily filter out unknown records from true errors using [Bluebird's error class matching](https://github.com/petkaantonov/bluebird/blob/master/API.md#catchfunction-errorclassfunction-predicate-function-handler---promise):

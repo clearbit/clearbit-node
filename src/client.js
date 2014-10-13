@@ -17,6 +17,7 @@ function ClearbitClient (config) {
 
   this.Person = require('./person')(this);
   this.Company = require('./company')(this);
+  this.PersonCompany = require('./person_company')(this);
 }
 
 var base = 'https://%s%s.clearbit.co/v%s';
@@ -66,7 +67,7 @@ ClearbitClient.prototype.request = function (options) {
   )
   .bind(this)
   .spread(function (response, body) {
-    if (response.statusCode >= 400) {
+    if (response.statusCode == 202 || response.statusCode >= 400) {
       var message = body.error ? body.error.message : http.STATUS_CODES[response.statusCode] || 'Unknown';
       throw _.extend(new this.ClearbitError(message), {
         type: body.error ? body.error.type : 'unknown',

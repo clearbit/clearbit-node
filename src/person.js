@@ -10,8 +10,6 @@ module.exports = function (client) {
     _.extend(this, data);
   }
 
-  Person.prototype.pending = utils.pending;
-
   Person.find = Promise.method(function (options) {
     assert(options && options.email, 'An email must be provided');
     return this.client.request(_.extend({
@@ -21,6 +19,9 @@ module.exports = function (client) {
     }, options))
     .bind(this)
     .then(utils.cast)
+    .catch(utils.isQueued, function () {
+      throw new this.QueuedError('Person lookup queued');
+    })
     .catch(utils.isUnknownRecord, function () {
       throw new this.NotFoundError('Person not found');
     });
@@ -28,6 +29,7 @@ module.exports = function (client) {
 
   Person.prototype.client = Person.client = client;
   Person.NotFoundError = utils.NotFoundError;
+  Person.QueuedError = utils.QueuedError;
 
   return Person;
 };
