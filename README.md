@@ -25,16 +25,16 @@ var clearbit = new Client({key: 'api_key'});
   * `email` *String*: The email address to look up **(required)**
   * `webhook_id` *String*: Custom identifier for the webhook request
   * `subscribe` *Boolean*: Set to `true` to subscribe to the changes
-  * `company` *Boolean*: Set to `true` to include a company lookup on the email’s domain name in the response
   * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.co/docs?shell#streaming) instead of webhooks
 
 ```js
 var Person = clearbit.Person;
 Person.find({email: 'email@domain.com'})
   .then(function (person) {
-    if (!person.isPending()) {
-      console.log('Name: ', person.name.fullName);
-    }
+    console.log('Name: ', person.name.fullName);
+  })
+  .catch(Person.QueuedError, function (err) {
+    console.log(err); // Person is queued
   })
   .catch(Person.NotFoundError, function (err) {
     console.log(err); // Person could not be found
@@ -55,9 +55,10 @@ Person.find({email: 'email@domain.com'})
 var Company = clearbit.Company;
 Company.find({domain: 'www.uber.com'})
   .then(function (company) {
-    if (!company.isPending()) {
-      console.log('Name: ', company.name);
-    }
+    console.log('Name: ', company.name);
+  })
+  .catch(Company.QueuedError, function (err) {
+    console.log(err); // Company is queued
   })
   .catch(Company.NotFoundError, function (err) {
     console.log(err); // Company could not be found
@@ -66,19 +67,6 @@ Company.find({domain: 'www.uber.com'})
     console.log('Bad/invalid request, unauthorized, Clearbit error, or failed request');
   });
 ```
-
-### Queued Handling
-
-If Clearbit responds with a `202` status indicating that lookup has been queued, then a `QueuedError` will be thrown. You can catch this like so:
-
-```js
-Person.find({email: 'notqueued@example.com'})
-  .catch(Person.QueuedError, function () {
-    // Record has been queued
-  })
-```
-
-If long-lived requests are not a problem for you you can avoid queuing errors by using our streaming API.
 
 ### Error Handling
 Lookups return [Bluebird](https://github.com/petkaantonov/bluebird) promises. Any status code >=400 will trigger an error, including lookups than do not return a result. You can easily filter out unknown records from true errors using [Bluebird's error class matching](https://github.com/petkaantonov/bluebird/blob/master/API.md#catchfunction-errorclassfunction-predicate-function-handler---promise):
