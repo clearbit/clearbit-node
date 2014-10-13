@@ -39,7 +39,7 @@ describe('PersonCompany', function () {
             type: 'queued'
           }
         });
-      return PersonCompany.find({email: 'alex@alexmaccaw.com'})
+      return expect(PersonCompany.find({email: 'alex@alexmaccaw.com'}))
         .to.be.rejectedWith(PersonCompany.QueuedError);
     });
 

@@ -53,8 +53,8 @@ describe('Person', function () {
             type: 'queued'
           }
         });
-      return Person.find({email: 'alex@alexmaccaw.com'})
-        .to.be.rejectedWith(Company.QueuedError);
+      return expect(Person.find({email: 'alex@alexmaccaw.com'}))
+        .to.be.rejectedWith(Person.QueuedError);
     });
 
     it('can handle unknown records', function () {

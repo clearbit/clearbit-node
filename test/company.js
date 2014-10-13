@@ -40,7 +40,7 @@ describe('Company', function () {
             type: 'queued'
           }
         });
-      return Company.find({domain: 'uber.com'})
+      return expect(Company.find({domain: 'uber.com'}))
         .to.be.rejectedWith(Company.QueuedError);
     });
 
