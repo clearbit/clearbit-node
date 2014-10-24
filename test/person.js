@@ -1,8 +1,9 @@
 'use strict';
 
-var expect = require('chai').use(require('chai-as-promised')).expect;
-var nock   = require('nock');
-var Person = require('../')('k').Person;
+var expect        = require('chai').use(require('chai-as-promised')).expect;
+var nock          = require('nock');
+var Person        = require('../')('k').Person;
+var PersonCompany = require('../')('k').PersonCompany;
 
 describe('Person', function () {
 
@@ -15,9 +16,10 @@ describe('Person', function () {
     mock.done();
   });
 
-  describe('Person#find', function () {
+  var alex = require('./fixtures/person');
+  var company = require('./fixtures/company');
 
-    var alex = require('./fixtures/person');
+  describe('Person#find', function () {
 
     it('can find a person by email', function () {
       mock
@@ -36,13 +38,6 @@ describe('Person', function () {
         .get('/v1/people/email/alex@alexmaccaw.com?subscribe=true')
         .reply(200, alex);
       return Person.find({email: 'alex@alexmaccaw.com', subscribe: true});
-    });
-
-    it('can override the company setting', function () {
-      mock
-        .get('/v1/people/email/alex@alexmaccaw.com?company=false')
-        .reply(200, alex);
-      return Person.find({email: 'alex@alexmaccaw.com', company: false});
     });
 
     it('can handle queued requests', function () {
@@ -71,4 +66,37 @@ describe('Person', function () {
 
   });
 
+  describe('PersonCompany#find', function () {
+
+    it('can find a person by email', function () {
+      mock
+        .get('/v1/combined/email/alex@alexmaccaw.com')
+        .reply(200, {
+          person: alex,
+          company: company
+        });
+      return PersonCompany.find({email: 'alex@alexmaccaw.com'})
+        .then(function (personCompany) {
+          expect(personCompany)
+            .to.be.an.instanceOf(PersonCompany)
+            .and.have.have.keys('person', 'company')
+            .and.have.deep.property('person.id', alex.id);
+        });
+    });
+
+    it('can handle queued requests', function () {
+      mock
+        .get('/v1/combined/email/alex@alexmaccaw.com')
+        .reply(202, {
+          error: {
+            type: 'queued'
+          }
+        });
+      return expect(PersonCompany.find({email: 'alex@alexmaccaw.com'}))
+        .to.be.rejectedWith(PersonCompany.QueuedError);
+    });
+
+  });
+
 });
+
