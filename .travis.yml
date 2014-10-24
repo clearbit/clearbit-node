@@ -18,6 +18,3 @@ deploy:
     tags: true
     all_branches: true
     repo: clearbit/clearbit-node
-env:
-  global:
-  - secure: B9wzHT52XFBTDLuIeLzPcRMJfdONBsYmRl7H7ufmmPSDV5ZUOpVr+1QXw5ONsAlbWvpkhmzE1Fg+h1hhoLSeM6BqO6rPS94M+1m2HgRTnJPxkIabfs4lM+Y+HFyloE2XnWVt/QrbZ1zL+q++MWh+tsjr4WklOt1znhO/XNQhgQg=
