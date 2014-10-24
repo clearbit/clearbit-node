@@ -18,6 +18,8 @@ function ClearbitResource (data) {
 }
 
 ClearbitResource.find = Promise.method(function (options) {
+  options = options || /* istanbul ignore next */ {};
+  this.emit('preFind', options);
   return this.client.request(_.extend({
     api: this._options.api,
     path: this._options.template(options),
@@ -43,18 +45,26 @@ function createErrors (name) {
 }
 
 exports.create = function (name, options) {
-  return function (client) {
+  var Resource = function () {
+    ClearbitResource.apply(this, arguments);
+  };
+      
+  _.extend(Resource, new EventEmitter(), EventEmitter.prototype, ClearbitResource, createErrors(name), {
+    _name: name,
+    _options: _.extend({}, options, {
+      template: _.template(options.path)
+    })
+  });
 
-    var Resource = function () {
-      ClearbitResource.apply(this, arguments);
-    };
-        
-    _.extend(Resource, new EventEmitter(), ClearbitResource, createErrors(name), {
-      _name: name,
-      _options: _.extend(options, {
-        template: _.template(options.path)
-      }),
+  return _.extend(function (client) {
+    return _.extend(Resource, {
       client: client
     });
-  };
+  },
+  {
+    on: function () {
+      Resource.on.apply(Resource, arguments);
+      return this;
+    }
+  });
 };
