@@ -20,4 +20,4 @@ deploy:
     repo: clearbit/clearbit-node
 env:
   global:
-    secure: CHoeYn6R9p4vQ96KkysrCSIiN7J0EU1x1jNuevgYVgVol+b5ukvDVUBTaSEzeSznuCotrZdhPp6/CQNELMDJowTXUgbwdp7FUPss5Bp5WjMJHt+YIUw3vjaeucPawX2uzVyNjFY2pCG2IDl13LAvDEWuqMvB6NboX9uBFpW8ah0=
+  - secure: B9wzHT52XFBTDLuIeLzPcRMJfdONBsYmRl7H7ufmmPSDV5ZUOpVr+1QXw5ONsAlbWvpkhmzE1Fg+h1hhoLSeM6BqO6rPS94M+1m2HgRTnJPxkIabfs4lM+Y+HFyloE2XnWVt/QrbZ1zL+q++MWh+tsjr4WklOt1znhO/XNQhgQg=
