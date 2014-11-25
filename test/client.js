@@ -45,7 +45,7 @@ describe('Client', function () {
       expect(client.base({
         api: 'person'
       }))
-      .to.equal('https://person.clearbit.co/v1');
+      .to.equal('https://person.clearbit.com/v1');
     });
 
     it('can generate a streaming base', function () {
@@ -53,7 +53,7 @@ describe('Client', function () {
         api: 'person',
         stream: true
       }))
-      .to.equal('https://person-stream.clearbit.co/v1');
+      .to.equal('https://person-stream.clearbit.com/v1');
     });
 
     it('can set a custom version', function () {
@@ -61,7 +61,7 @@ describe('Client', function () {
         api: 'person',
         version: '2'
       }))
-      .to.equal('https://person.clearbit.co/v2');
+      .to.equal('https://person.clearbit.com/v2');
     });
 
   });
@@ -70,7 +70,7 @@ describe('Client', function () {
 
     var mock;
     before(function () {
-      mock = nock('https://person.clearbit.co');
+      mock = nock('https://person.clearbit.com');
     });
     after(nock.cleanAll);
     afterEach(function () {

@@ -8,7 +8,7 @@ describe('Person', function () {
 
   var mock;
   before(function () {
-    mock = nock('https://person.clearbit.co');
+    mock = nock('https://person.clearbit.com');
   });
   after(nock.cleanAll);
   afterEach(function () {

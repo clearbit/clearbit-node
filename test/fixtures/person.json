@@ -8,13 +8,13 @@
   "email": "alex@alexmaccaw.com",
   "gender": "male",
   "location": "San Francisco",
-  "bio": "O'Reilly author, software engineer & traveller. Founder of https://clearbit.co",
+  "bio": "O'Reilly author, software engineer & traveller. Founder of https://clearbit.com",
   "site": "http://alexmaccaw.com",
   "avatar": "https://pbs.twimg.com/profile_images/1826201101/297606_10150904890650705_570400704_21211347_1883468370_n.jpeg",
   "employment": {
     "name": "Clearbit",
     "title": "CEO",
-    "domain": "clearbit.co"
+    "domain": "clearbit.com"
   },
   "facebook": {
     "handle": "amaccaw"
@@ -30,7 +30,7 @@
   "twitter": {
     "handle": "maccaw",
     "id": 2006261,
-    "bio": "O'Reilly author, software engineer & traveller. Founder of https://clearbit.co",
+    "bio": "O'Reilly author, software engineer & traveller. Founder of https://clearbit.com",
     "followers": 14993,
     "following": 1645,
     "location": "San Francisco",

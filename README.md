@@ -1,10 +1,10 @@
 clearbit-node [![Build Status](https://travis-ci.org/bendrucker/clearbit-node.svg?branch=master)](https://travis-ci.org/bendrucker/clearbit-node) [![Code Climate](https://codeclimate.com/github/bendrucker/clearbit-node/badges/gpa.svg)](https://codeclimate.com/github/bendrucker/clearbit-node) [![Test Coverage](https://codeclimate.com/github/bendrucker/clearbit-node/badges/coverage.svg)](https://codeclimate.com/github/bendrucker/clearbit-node)
 =============
 
-Node library for querying the [Clearbit](https://clearbit.co) business intelligence APIs. Currently supports:
+Node library for querying the [Clearbit](https://clearbit.com) business intelligence APIs. Currently supports:
 
-* [Person API](https://clearbit.co/docs#person-api)
-* [Company API](https://clearbit.co/docs#company-api)
+* [Person API](https://clearbit.com/docs#person-api)
+* [Company API](https://clearbit.com/docs#company-api)
 
 ## Setup
 ```bash
@@ -25,7 +25,7 @@ var clearbit = new Client({key: 'api_key'});
   * `email` *String*: The email address to look up **(required)**
   * `webhook_id` *String*: Custom identifier for the webhook request
   * `subscribe` *Boolean*: Set to `true` to subscribe to the changes
-  * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.co/docs?shell#streaming) instead of webhooks
+  * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.com/docs?shell#streaming) instead of webhooks
 
 ```js
 var Person = clearbit.Person;
@@ -49,7 +49,7 @@ Person.find({email: 'email@domain.com'})
 #### `Company.find(options)` -> `Promise`
   * `domain` *String*: The company domain to look up **(required)**
   * `webhook_id` *String*: Custom identifier for the webhook request
-  * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.co/docs?shell#streaming) instead of webhooks
+  * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.com/docs?shell#streaming) instead of webhooks
 
 ```js
 var Company = clearbit.Company;

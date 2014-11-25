@@ -20,7 +20,7 @@ function ClearbitClient (config) {
   this.PersonCompany = require('./person_company')(this);
 }
 
-var base = 'https://%s%s.clearbit.co/v%s';
+var base = 'https://%s%s.clearbit.com/v%s';
 ClearbitClient.prototype.base = function (options) {
   options = _.defaults(options, {
     version: '1',
