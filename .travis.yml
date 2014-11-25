@@ -17,7 +17,4 @@ deploy:
   on:
     tags: true
     all_branches: true
-    repo: bendrucker/clearbit-node
-env:
-  global:
-    secure: CHoeYn6R9p4vQ96KkysrCSIiN7J0EU1x1jNuevgYVgVol+b5ukvDVUBTaSEzeSznuCotrZdhPp6/CQNELMDJowTXUgbwdp7FUPss5Bp5WjMJHt+YIUw3vjaeucPawX2uzVyNjFY2pCG2IDl13LAvDEWuqMvB6NboX9uBFpW8ah0=
+    repo: clearbit/clearbit-node

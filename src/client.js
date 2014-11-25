@@ -15,9 +15,9 @@ function ClearbitClient (config) {
   assert(!!config.key, 'An API key must be provided');
   this.key = config.key;
 
-  this.Person = require('./person')(this);
+  this.Person = require('./person').Person(this);
+  this.PersonCompany = require('./person').PersonCompany(this);
   this.Company = require('./company')(this);
-  this.PersonCompany = require('./person_company')(this);
 }
 
 var base = 'https://%s%s.clearbit.com/v%s';
@@ -48,7 +48,7 @@ function generateQuery () {
 }
 
 ClearbitClient.prototype.request = function (options) {
-  options = _.defaults(options || /* istanbul ignore next */ {}, {
+  options = _.defaults(options, {
     method: 'get',
     query: {}
   });
