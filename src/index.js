@@ -2,9 +2,10 @@
 
 var Client = require('./client');
 
-module.exports = function (key) {
+module.exports = function (key, connectionOptions) {
   return new Client({
-    key: key
+    key: key,
+    connectionOptions: connectionOptions
   });
 };
 
