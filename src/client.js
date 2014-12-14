@@ -11,9 +11,11 @@ var pkg         = require('../package.json');
 
 function ClearbitClient (config) {
   config = config || {};
+  config.connectionOptions = config.connectionOptions || {};
   assert(this instanceof ClearbitClient, 'Client must be called with new');
   assert(!!config.key, 'An API key must be provided');
   this.key = config.key;
+  this.connectionTimeout = config.connectionOptions.timeout ? config.connectionOptions.timeout : 5000;
 
   this.Person = require('./person').Person(this);
   this.PersonCompany = require('./person').PersonCompany(this);
@@ -59,7 +61,7 @@ ClearbitClient.prototype.request = function (options) {
       webhook_id: options.webhook_id
     }, options.query),
     {
-      timeout: options.stream ? 60000 : 5000,
+      timeout: options.stream ? 60000 : this.connectionTimeout,
       username: this.key,
       password: '',
       user_agent: 'ClearbitNode/v' + pkg.version
