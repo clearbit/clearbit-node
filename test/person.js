@@ -79,7 +79,7 @@ describe('Person', function () {
         .then(function (personCompany) {
           expect(personCompany)
             .to.be.an.instanceOf(PersonCompany)
-            .and.have.have.keys('person', 'company')
+            .and.have.include.keys('person', 'company')
             .and.have.deep.property('person.id', alex.id);
         });
     });
