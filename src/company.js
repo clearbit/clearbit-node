@@ -2,6 +2,7 @@
 
 var assert   = require('assert');
 var resource = require('./resource');
+var _        = require('lodash');
 
 module.exports = resource.create('Company', {
   api: 'company',
@@ -14,7 +15,7 @@ module.exports = resource.create('Company', {
     return this.client.request(_.extend({
       api: this._options.api,
       method: 'post',
-      path: _.template('/people/<%= id %>/flag', this),
+      path: _.template('/companies/<%= id %>/flag', this),
       query: params || {}
     }, options));
   }
