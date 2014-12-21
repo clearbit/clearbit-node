@@ -27,7 +27,12 @@ ClearbitResource.find = Promise.method(function (options) {
   }, options))
   .bind(this)
   .then(function (data) {
-    return new this(data);
+    return new this(
+      _.extend({}, data, {
+        _options: this._options,
+        client:   this.client
+      })
+    );
   })
   .catch(isQueued, function () {
     throw new this.QueuedError(this._name + ' lookup queued');
@@ -48,7 +53,7 @@ exports.create = function (name, options) {
   var Resource = function () {
     ClearbitResource.apply(this, arguments);
   };
-      
+
   _.extend(Resource, new EventEmitter(), EventEmitter.prototype, ClearbitResource, createErrors(name), {
     _name: name,
     _options: _.extend({}, options, {
@@ -64,6 +69,11 @@ exports.create = function (name, options) {
   {
     on: function () {
       Resource.on.apply(Resource, arguments);
+      return this;
+    },
+
+    include: function (props) {
+      _.extend(Resource.prototype, props);
       return this;
     }
   });
