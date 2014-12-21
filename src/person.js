@@ -21,7 +21,7 @@ exports.Person = resource.create('Person', {
       method: 'post',
       path: _.template('/people/<%= id %>/flag', this),
       query: params || {}
-    }, options))
+    }, options));
   }
 });
 
