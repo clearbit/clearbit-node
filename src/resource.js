@@ -17,29 +17,42 @@ function ClearbitResource (data) {
   _.extend(this, data);
 }
 
-ClearbitResource.find = Promise.method(function (options) {
-  options = options || /* istanbul ignore next */ {};
-  this.emit('preFind', options);
-  return this.client.request(_.extend({
-    api: this._options.api,
-    path: this._options.template(options),
-    query: _.pick(options, this._options.queryKeys)
-  }, options))
-  .bind(this)
-  .then(function (data) {
-    return new this(
-      _.extend({}, data, {
-        _options: this._options,
-        client:   this.client
-      })
-    );
-  })
-  .catch(isQueued, function () {
-    throw new this.QueuedError(this._name + ' lookup queued');
-  })
-  .catch(isUnknownRecord, function () {
-    throw new this.NotFoundError(this._name + ' not found');
-  });
+ClearbitResource.extractParams = function(params) {
+  return _.omit(params || {}, 'path', 'method', 'params', 'client', 'api', 'stream');
+};
+
+ClearbitResource.get = Promise.method(function (path, options) {
+  options = _.extend({
+    path:   path,
+    method: 'get',
+    params: this.extractParams(options)
+  }, this.options, options || {});
+
+  return this.client.request(options)
+    .bind(this)
+    .then(function (data) {
+      return new this(data);
+    })
+    .catch(isQueued, function () {
+      throw new this.QueuedError(this.name + ' lookup queued');
+    })
+    .catch(isUnknownRecord, function () {
+      throw new this.NotFoundError(this.name + ' not found');
+    });
+});
+
+ClearbitResource.post = Promise.method(function (path, options) {
+  options = _.extend({
+    path:   path,
+    method: 'post',
+    query:  this.extractParams(options)
+  }, this.options, options || {});
+
+  return this.client.request(options)
+    .bind(this)
+    .catch(isUnknownRecord, function () {
+      throw new this.NotFoundError(this.name + ' not found');
+    });
 });
 
 function createErrors (name) {
@@ -54,11 +67,13 @@ exports.create = function (name, options) {
     ClearbitResource.apply(this, arguments);
   };
 
-  _.extend(Resource, new EventEmitter(), EventEmitter.prototype, ClearbitResource, createErrors(name), {
-    _name: name,
-    _options: _.extend({}, options, {
-      template: _.template(options.path)
-    })
+  _.extend(Resource,
+           new EventEmitter(),
+           EventEmitter.prototype,
+           ClearbitResource,
+           createErrors(name), {
+    name: name,
+    options: options
   });
 
   return _.extend(function (client) {
@@ -74,6 +89,11 @@ exports.create = function (name, options) {
 
     include: function (props) {
       _.extend(Resource.prototype, props);
+      return this;
+    },
+
+    extend: function (props) {
+      _.extend(Resource, props);
       return this;
     }
   });
