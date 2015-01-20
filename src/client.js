@@ -34,12 +34,12 @@ ClearbitClient.prototype.endpoint = function (options) {
 
   assert(options.api, 'An API must be specified');
 
-  return util.format.apply(util, [
+  return util.format(
     ENDPOINT,
     options.api,
     options.stream ? '-stream' : '',
     options.version
-  ]);
+  );
 };
 
 ClearbitClient.prototype.url = function (options) {

@@ -5,32 +5,32 @@ var resource = require('./resource');
 var _        = require('lodash');
 
 exports.Person = resource.create('Person', {api: 'person'})
-.extend({
-  find: function(options){
-    options = options || {};
-    assert(options.email, 'An email must be provided');
+  .extend({
+    flag: function(options){
+      return this.constructor.post('/people/' + this.id + '/flag', options);
+    }
+  },
+  {
+    find: function(options){
+      options = options || {};
+      assert(options.email, 'An email must be provided');
 
-    return this.get(
-      '/people/email/' + options.email,
-      _.omit(options, 'email')
-    );
-  }
-})
-.include({
-  flag: function(options){
-    return this.constructor.post('/people/' + this.id + '/flag', options);
-  }
-});
+      return this.get(
+        '/people/email/' + options.email,
+        _.omit(options, 'email')
+      );
+    }
+  });
 
 exports.PersonCompany = resource.create('PersonCompany', {api: 'person'})
-.extend({
-  find: function(options){
-    options = options || {};
-    assert(options.email, 'An email must be provided');
+  .extend(null, {
+    find: function(options){
+      options = options || {};
+      assert(options.email, 'An email must be provided');
 
-    return this.get(
-      '/combined/email/' + options.email,
-      _.omit(options, 'email')
-    );
-  }
-});
+      return this.get(
+        '/combined/email/' + options.email,
+        _.omit(options, 'email')
+      );
+    }
+  });

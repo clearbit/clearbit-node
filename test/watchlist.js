@@ -1,7 +1,7 @@
 'use strict';
 
-var expect  = require('chai').expect;
-var nock    = require('nock');
+var expect    = require('chai').expect;
+var nock      = require('nock');
 var Watchlist = require('../')('k').Watchlist;
 
 describe('Watchlist', function () {
@@ -25,7 +25,6 @@ describe('Watchlist', function () {
         .reply(200, watchlist);
       return Watchlist.search({name: 'Joe'})
         .then(function (watchlist) {
-          // console.log(watchlist.constructor)
           expect(watchlist[0])
             .to.be.an.instanceOf(Watchlist)
             .and.have.property('id', watchlist.id);

@@ -1,91 +1,51 @@
 'use strict';
 
-var createError  = require('create-error');
-var EventEmitter = require('events').EventEmitter;
-var _            = require('lodash');
-var Promise      = require('bluebird');
-
-function isQueued (err) {
-  return err.type === 'queued';
-}
-
-function isUnknownRecord (err) {
-  return err.type === 'unknown_record';
-}
+var createError = require('create-error');
+var _           = require('lodash');
 
 function ClearbitResource (data) {
   _.extend(this, data);
 }
 
-ClearbitResource.extractParams = function(options) {
-  var params = _.omit(options || {},
-    'path', 'method', 'params',
-    'client', 'api', 'stream'
-  );
-
-  return _.isEmpty(params) ? null : params;
-};
-
-ClearbitResource.get = Promise.method(function (path, options) {
+ClearbitResource.get = function (path, options) {
   options = _.extend({
     path:   path,
     method: 'get',
-    query: this.extractParams(options)
-  }, this.options, options || {});
+    query: extractParams(options)
+  }, this.options, options);
 
   return this.client.request(options)
     .bind(this)
-    .then(function (data) {
-      return new this(data);
-    })
+    .then(cast)
     .catch(isQueued, function () {
       throw new this.QueuedError(this.name + ' lookup queued');
     })
     .catch(isUnknownRecord, function () {
       throw new this.NotFoundError(this.name + ' not found');
     });
-});
+};
 
-ClearbitResource.post = Promise.method(function (path, options) {
+ClearbitResource.post = function (path, options) {
   options = _.extend({
     path:   path,
     method: 'post',
-    query:  this.extractParams(options)
-  }, this.options, options || {});
+    query:  extractParams(options)
+  }, this.options, options);
 
   return this.client.request(options)
     .bind(this)
-    .then(function (data) {
-      return new this(data);
-    })
+    .then(cast)
     .catch(isUnknownRecord, function () {
       throw new this.NotFoundError(this.name + ' not found');
     });
-});
-
-function createErrors (name) {
-  return {
-    NotFoundError: createError(name + 'NotFoundError'),
-    QueuedError: createError(name + 'QueuedError')
-  };
-}
+};
 
 exports.create = function (name, options) {
-  var Resource = function (data) {
-    if (_.isArray(data)) {
-      return data.map(function(item){
-        return new this.constructor(item);
-      }.bind(this));
-    }
-
+  var Resource = function () {
     ClearbitResource.apply(this, arguments);
   };
 
-  _.extend(Resource,
-           new EventEmitter(),
-           EventEmitter.prototype,
-           ClearbitResource,
-           createErrors(name), {
+  _.extend(Resource, ClearbitResource, createErrors(name), {
     name: name,
     options: options
   });
@@ -96,19 +56,41 @@ exports.create = function (name, options) {
     });
   },
   {
-    on: function () {
-      Resource.on.apply(Resource, arguments);
-      return this;
-    },
-
-    include: function (props) {
-      _.extend(Resource.prototype, props);
-      return this;
-    },
-
-    extend: function (props) {
-      _.extend(Resource, props);
+    extend: function (proto, ctor) {
+      _.extend(Resource.prototype, proto);
+      _.extend(Resource, ctor);
       return this;
     }
   });
 };
+
+function cast (data) {
+  /* jshint validthis:true */
+  return !Array.isArray(data) ? new this(data) : data.map(function (result) {
+    return new this(result);
+  }, this);
+}
+
+function isQueued (err) {
+  return err.type === 'queued';
+}
+
+function isUnknownRecord (err) {
+  return err.type === 'unknown_record';
+}
+
+function createErrors (name) {
+  return {
+    NotFoundError: createError(name + 'NotFoundError'),
+    QueuedError: createError(name + 'QueuedError')
+  };
+}
+
+function extractParams (options) {
+  var params = _.omit(options || {},
+    'path', 'method', 'params',
+    'client', 'api', 'stream'
+  );
+
+  return _.isEmpty(params) ? null : params;
+}

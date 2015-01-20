@@ -4,7 +4,8 @@ var resource = require('./resource');
 
 exports.Watchlist = resource.create('Watchlist', {
   api: 'watchlist'
-}).extend({
+})
+.extend(null, {
   search: function(options) {
     return this.post('/search/all', options);
   }
@@ -12,7 +13,8 @@ exports.Watchlist = resource.create('Watchlist', {
 
 exports.WatchlistIndividual = resource.create('WatchlistIndividual', {
   api: 'watchlist'
-}).extend({
+})
+.extend(null, {
   search: function(options) {
     return this.post('/search/individuals', options);
   }
@@ -20,7 +22,8 @@ exports.WatchlistIndividual = resource.create('WatchlistIndividual', {
 
 exports.WatchlistEntity = resource.create('WatchlistEntity', {
   api: 'watchlist'
-}).extend({
+})
+.extend(null, {
   search: function(options) {
     return this.post('/search/entities', options);
   }
