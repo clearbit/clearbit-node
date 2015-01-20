@@ -34,22 +34,22 @@ describe('Client', function () {
 
   });
 
-  describe('#base', function () {
+  describe('#endpoint', function () {
 
     it('requires an API', function () {
-      expect(client.base.bind(client, {}))
+      expect(client.endpoint.bind(client, {}))
         .to.throw(/API must be specified/);
     });
 
-    it('can generate the default base', function () {
-      expect(client.base({
+    it('can generate the default endpoint', function () {
+      expect(client.endpoint({
         api: 'person'
       }))
       .to.equal('https://person.clearbit.com/v1');
     });
 
-    it('can generate a streaming base', function () {
-      expect(client.base({
+    it('can generate a streaming endpoint', function () {
+      expect(client.endpoint({
         api: 'person',
         stream: true
       }))
@@ -57,7 +57,7 @@ describe('Client', function () {
     });
 
     it('can set a custom version', function () {
-      expect(client.base({
+      expect(client.endpoint({
         api: 'person',
         version: '2'
       }))
