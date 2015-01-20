@@ -17,15 +17,20 @@ function ClearbitResource (data) {
   _.extend(this, data);
 }
 
-ClearbitResource.extractParams = function(params) {
-  return _.omit(params || {}, 'path', 'method', 'params', 'client', 'api', 'stream');
+ClearbitResource.extractParams = function(options) {
+  var params = _.omit(options || {},
+    'path', 'method', 'params',
+    'client', 'api', 'stream'
+  );
+
+  return _.isEmpty(params) ? null : params;
 };
 
 ClearbitResource.get = Promise.method(function (path, options) {
   options = _.extend({
     path:   path,
     method: 'get',
-    params: this.extractParams(options)
+    query: this.extractParams(options)
   }, this.options, options || {});
 
   return this.client.request(options)
@@ -50,6 +55,9 @@ ClearbitResource.post = Promise.method(function (path, options) {
 
   return this.client.request(options)
     .bind(this)
+    .then(function (data) {
+      return new this(data);
+    })
     .catch(isUnknownRecord, function () {
       throw new this.NotFoundError(this.name + ' not found');
     });
@@ -63,7 +71,13 @@ function createErrors (name) {
 }
 
 exports.create = function (name, options) {
-  var Resource = function () {
+  var Resource = function (data) {
+    if (_.isArray(data)) {
+      return data.map(function(item){
+        return new this.constructor(item);
+      }.bind(this));
+    }
+
     ClearbitResource.apply(this, arguments);
   };
 

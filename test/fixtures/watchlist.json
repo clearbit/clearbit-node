@@ -1,0 +1,12 @@
+[
+  {
+    "id": "6ffa17f3-2653-485f-9129-73bdaa88087a",
+    "name": {
+      "fullName": "Joe Schmo"
+    },
+    "addresses": [],
+    "list": "ofac_sdn",
+    "remarks": null,
+    "type": "entity"
+  }
+]

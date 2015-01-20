@@ -51,8 +51,7 @@ ClearbitClient.prototype.url = function (options) {
 
 ClearbitClient.prototype.request = function (options) {
   options = _.defaults(options, {
-    method: 'get',
-    query: {}
+    method: 'get'
   });
 
   return needle.requestAsync(
