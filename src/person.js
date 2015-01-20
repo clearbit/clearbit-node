@@ -33,4 +33,4 @@ exports.PersonCompany = resource.create('PersonCompany', {api: 'person'})
       _.omit(options, 'email')
     );
   }
-})
+});

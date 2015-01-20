@@ -1,7 +1,6 @@
 'use strict';
 
 var resource = require('./resource');
-var _        = require('lodash');
 
 exports.Watchlist = resource.create('Watchlist', {
   api: 'watchlist'
@@ -9,7 +8,7 @@ exports.Watchlist = resource.create('Watchlist', {
   search: function(options) {
     return this.post('/search/all', options);
   }
-})
+});
 
 exports.WatchlistIndividual = resource.create('WatchlistIndividual', {
   api: 'watchlist'
