@@ -20,6 +20,7 @@ function ClearbitClient (config) {
   this.Person = require('./person').Person(this);
   this.PersonCompany = require('./person').PersonCompany(this);
   this.Watchlist = require('./watchlist').Watchlist(this);
+  this.WatchlistCandidate = require('./watchlist').WatchlistCandidate(this);
   this.WatchlistEntity = require('./watchlist').WatchlistEntity(this);
   this.WatchlistIndividual = require('./watchlist').WatchlistIndividual(this);
 }

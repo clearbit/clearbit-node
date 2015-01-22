@@ -40,6 +40,20 @@ ClearbitResource.post = function (path, options) {
     });
 };
 
+ClearbitResource.del = function (path, options) {
+  options = _.extend({
+    path:   path,
+    method: 'delete'
+  }, this.options, options);
+
+  return this.client.request(options)
+    .bind(this)
+    .then(cast)
+    .catch(isUnknownRecord, function () {
+      throw new this.NotFoundError(this.name + ' not found');
+    });
+};
+
 exports.create = function (name, options) {
   var Resource = function () {
     ClearbitResource.apply(this, arguments);

@@ -28,3 +28,23 @@ exports.WatchlistEntity = resource.create('WatchlistEntity', {
     return this.post('/search/entities', options);
   }
 });
+
+exports.WatchlistCandidate = resource.create('WatchlistCandidate', {
+  api: 'watchlist'
+}).extend({
+  destroy: function(){
+    return this.constructor.del('/candidates/' + this.id);
+  }
+}, {
+  all: function(options) {
+    return this.get('/candidates', options);
+  },
+
+  create: function(options) {
+    return this.post('/candidates', options);
+  },
+
+  find: function(id, options) {
+    return this.get('/candidates/' + id, options);
+  }
+});
