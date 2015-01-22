@@ -22,6 +22,7 @@ function ClearbitClient (config) {
   this.Watchlist = require('./watchlist').Watchlist(this);
   this.WatchlistEntity = require('./watchlist').WatchlistEntity(this);
   this.WatchlistIndividual = require('./watchlist').WatchlistIndividual(this);
+  this.WatchlistCandidate = require('./watchlist').WatchlistCandidate(this);
 }
 
 var ENDPOINT = 'https://%s%s.clearbit.com/v%s';

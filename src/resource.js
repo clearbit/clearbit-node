@@ -63,6 +63,19 @@ ClearbitResource.post = Promise.method(function (path, options) {
     });
 });
 
+ClearbitResource.del = Promise.method(function (path, options) {
+  options = _.extend({
+    path:   path,
+    method: 'delete',
+  }, this.options, options || {});
+
+  return this.client.request(options)
+    .bind(this)
+    .catch(isUnknownRecord, function () {
+      throw new this.NotFoundError(this.name + ' not found');
+    });
+});
+
 function createErrors (name) {
   return {
     NotFoundError: createError(name + 'NotFoundError'),
