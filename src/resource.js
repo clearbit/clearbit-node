@@ -4,6 +4,7 @@ var createError = require('create-error');
 var _           = require('lodash');
 
 function ClearbitResource (data) {
+  this.options = {};
   _.extend(this, data);
 }
 
@@ -52,6 +53,11 @@ ClearbitResource.del = function (path, options) {
     .catch(isUnknownRecord, function () {
       throw new this.NotFoundError(this.name + ' not found');
     });
+};
+
+ClearbitResource.setVersion = function(value){
+  this.options.headers = this.options.headers || {};
+  this.options.headers['API-Version'] = value;
 };
 
 exports.create = function (name, options) {
@@ -103,7 +109,8 @@ function createErrors (name) {
 function extractParams (options) {
   var params = _.omit(options || {},
     'path', 'method', 'params',
-    'client', 'api', 'stream'
+    'client', 'api', 'stream',
+    'headers'
   );
 
   return _.isEmpty(params) ? null : params;
