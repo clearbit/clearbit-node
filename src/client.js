@@ -60,6 +60,7 @@ ClearbitClient.prototype.request = function (options) {
     this.url(options),
     options.query,
     {
+      headers: options.headers,
       timeout: options.stream ? 60000 : 10000,
       username: this.key,
       password: '',
