@@ -1,0 +1,61 @@
+{
+  "page": 0,
+  "total": 1,
+  "results": [{
+    "id": "027b0d40-016c-40ea-8925-a076fa640992",
+    "name": "Uber",
+    "legalName": "Uber, Inc.",
+    "domain": "uber.com",
+    "url": "http://uber.com",
+    "site": {
+      "url": "http://uber.com",
+      "title": null,
+      "h1": null,
+      "meta_description": null,
+      "meta_author": null
+    },
+    "categories": [
+      "Transportation",
+      "Design",
+      "SEO",
+      "Automotive",
+      "Real Time",
+      "Limousines",
+      "Public Transportation",
+      "Transport"
+    ],
+    "description": "Uber is a mobile app connecting passengers with drivers for hire.",
+    "founders": [
+      "Travis Kalanick",
+      "Garrett Camp"
+    ],
+    "raised": 1500000000.0,
+    "location": "San Francisco, California, U.S.",
+    "google": {
+      "rank": 7
+    },
+    "alexa": {
+      "usRank": 2730,
+      "globalRank": 2567
+    },
+    "facebook": {
+      "handle": "uber.IND"
+    },
+    "linkedin": {
+      "handle": "company/uber.com"
+    },
+    "twitter": {
+      "handle": "uber",
+      "id": 19103481,
+      "bio": "Everyone's Private Driver. Question, concern or praise? Tweet at your local community manager here: https://t.co/XdHQjJXn :)",
+      "followers": 155226,
+      "following": 325,
+      "location": "Global",
+      "site": "http://t.co/PtMbwFTeQA",
+      "avatar": "https://pbs.twimg.com/profile_images/378800000762572812/91ea09a6535666e18ca3c56f731f67ef_normal.jpeg"
+    },
+    "employees": 200,
+    "logo": "http://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Uber_logotype.svg/220px-Uber_logotype.svg.png",
+    "personal": false
+  }]
+}

@@ -30,7 +30,8 @@ ClearbitResource.post = function (path, options) {
   options = _.extend({
     path:   path,
     method: 'post',
-    query:  extractParams(options)
+    json:   true,
+    body:   extractParams(options)
   }, this.options, options);
 
   return this.client.request(options)

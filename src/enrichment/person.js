@@ -1,7 +1,7 @@
 'use strict';
 
 var assert   = require('assert');
-var resource = require('./resource');
+var resource = require('../resource');
 var _        = require('lodash');
 
 exports.Person = resource.create('Person', {api: 'person'})
@@ -17,19 +17,6 @@ exports.Person = resource.create('Person', {api: 'person'})
 
       return this.get(
         '/people/email/' + options.email,
-        _.omit(options, 'email')
-      );
-    }
-  });
-
-exports.PersonCompany = resource.create('PersonCompany', {api: 'person'})
-  .extend(null, {
-    find: function(options){
-      options = options || {};
-      assert(options.email, 'An email must be provided');
-
-      return this.get(
-        '/combined/email/' + options.email,
         _.omit(options, 'email')
       );
     }
