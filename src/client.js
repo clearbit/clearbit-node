@@ -16,9 +16,10 @@ function ClearbitClient (config) {
   this.key = config.key || process.env.CLEARBIT_KEY;
   assert(!!this.key, 'An API key must be provided');
 
-  this.Company = require('./company').Company(this);
-  this.Person = require('./person').Person(this);
-  this.PersonCompany = require('./person').PersonCompany(this);
+  this.Enrichment = require('./enrichment').Enrichment(this);
+  this.Company = require('./enrichment/company').Company(this);
+  this.Person = require('./enrichment/person').Person(this);
+  this.Discovery = require('./discovery').Discovery(this);
   this.Watchlist = require('./watchlist').Watchlist(this);
   this.WatchlistCandidate = require('./watchlist').WatchlistCandidate(this);
   this.WatchlistEntity = require('./watchlist').WatchlistEntity(this);

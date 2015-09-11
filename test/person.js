@@ -1,9 +1,9 @@
 'use strict';
 
-var expect        = require('chai').use(require('chai-as-promised')).expect;
-var nock          = require('nock');
-var Person        = require('../')('k').Person;
-var PersonCompany = require('../')('k').PersonCompany;
+var expect     = require('chai').use(require('chai-as-promised')).expect;
+var nock       = require('nock');
+var Person     = require('../')('k').Person;
+var Enrichment = require('../')('k').Enrichment;
 
 describe('Person', function () {
 
@@ -66,7 +66,7 @@ describe('Person', function () {
 
   });
 
-  describe('PersonCompany#find', function () {
+  describe('Enrichment#find', function () {
 
     it('can find a person by email', function () {
       mock
@@ -75,10 +75,10 @@ describe('Person', function () {
           person: alex,
           company: company
         });
-      return PersonCompany.find({email: 'alex@alexmaccaw.com'})
+      return Enrichment.find({email: 'alex@alexmaccaw.com'})
         .then(function (personCompany) {
           expect(personCompany)
-            .to.be.an.instanceOf(PersonCompany)
+            .to.be.an.instanceOf(Enrichment)
             .and.have.include.keys('person', 'company')
             .and.have.deep.property('person.id', alex.id);
         });
@@ -92,8 +92,8 @@ describe('Person', function () {
             type: 'queued'
           }
         });
-      return expect(PersonCompany.find({email: 'alex@alexmaccaw.com'}))
-        .to.be.rejectedWith(PersonCompany.QueuedError);
+      return expect(Enrichment.find({email: 'alex@alexmaccaw.com'}))
+        .to.be.rejectedWith(Enrichment.QueuedError);
     });
 
   });
