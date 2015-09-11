@@ -59,8 +59,9 @@ ClearbitClient.prototype.request = function (options) {
   return needle.requestAsync(
     options.method,
     this.url(options),
-    options.query,
+    options.body || options.query,
     {
+      json: options.json,
       headers: options.headers,
       timeout: options.stream ? 60000 : 10000,
       username: this.key,
