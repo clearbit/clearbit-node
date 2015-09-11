@@ -1,8 +1,6 @@
 'use strict';
 
-var assert   = require('assert');
 var resource = require('./resource');
-var _        = require('lodash');
 
 exports.Discovery = resource.create('Discovery', {api: 'discovery'})
   .extend(null, {
