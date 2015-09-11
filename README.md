@@ -3,8 +3,9 @@ clearbit-node [![Build Status](https://travis-ci.org/clearbit/clearbit-node.svg?
 
 Node library for querying the [Clearbit](https://clearbit.com) business intelligence APIs. Currently supports:
 
-* [Person API](https://clearbit.com/docs#person-api)
-* [Company API](https://clearbit.com/docs#company-api)
+* [Enrichment API](https://clearbit.com/docs#enrichment-api)
+* [Discovery API](https://clearbit.com/docs#discovery-api)
+* [Watchlist API](https://clearbit.com/docs#watchlist-api)
 
 ## Setup
 ```bash
