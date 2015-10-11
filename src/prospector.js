@@ -1,0 +1,37 @@
+'use strict';
+
+var resource = require('./resource');
+var Promise  = require('bluebird');
+
+exports.Prospector = resource.create('Prospector', {api: 'prospector'})
+  .extend({
+    getEmail: function (){
+      return this.getEmailResponse().then(function(resp){
+        return resp.email;
+      });
+    },
+
+    getVerified: function () {
+      return this.getEmailResponse().then(function(resp){
+        return resp.verified;
+      });
+    },
+
+    getEmailResponse: function () {
+      if (this.emailResponse)
+        return this.emailResponse;
+
+      return this.emailResponse = this.constructor.get(
+        '/people/' + this.id + '/email'
+      );
+    }
+  }, {
+    search: function (options) {
+      options = options || {};
+
+      return this.get(
+        '/people/search',
+        options
+      );
+    }
+  });
