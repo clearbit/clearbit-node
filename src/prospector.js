@@ -1,7 +1,6 @@
 'use strict';
 
 var resource = require('./resource');
-var Promise  = require('bluebird');
 
 exports.Prospector = resource.create('Prospector', {api: 'prospector'})
   .extend({
@@ -21,9 +20,11 @@ exports.Prospector = resource.create('Prospector', {api: 'prospector'})
       if (this.emailResponse)
         return this.emailResponse;
 
-      return this.emailResponse = this.constructor.get(
+      this.emailResponse = this.constructor.get(
         '/people/' + this.id + '/email'
       );
+
+      return this.emailResponse;
     }
   }, {
     search: function (options) {
