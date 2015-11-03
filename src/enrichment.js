@@ -16,10 +16,7 @@ exports.Enrichment = resource.create('Enrichment', {api: 'person'})
 
       assert(options.email, 'An email must be provided');
 
-      return this.get(
-        '/combined/email/' + options.email,
-        _.omit(options, 'email')
-      );
+      return this.get('/combined/find', options);
     },
 
     Company: Company,

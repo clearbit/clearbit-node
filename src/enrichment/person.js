@@ -15,9 +15,6 @@ exports.Person = resource.create('Person', {api: 'person'})
       options = options || {};
       assert(options.email, 'An email must be provided');
 
-      return this.get(
-        '/people/email/' + options.email,
-        _.omit(options, 'email')
-      );
+      return this.get('/people/find', options);
     }
   });
