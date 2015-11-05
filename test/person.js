@@ -23,7 +23,7 @@ describe('Person', function () {
 
     it('can find a person by email', function () {
       mock
-        .get('/v1/people/find?email=alex%40alexmaccaw.com')
+        .get('/v2/people/find?email=alex%40alexmaccaw.com')
         .reply(200, alex);
       return Person.find({email: 'alex@alexmaccaw.com'})
         .then(function (person) {
@@ -35,14 +35,14 @@ describe('Person', function () {
 
     it('can subscribe to a person', function () {
       mock
-        .get('/v1/people/find?email=alex%40alexmaccaw.com&subscribe=true')
+        .get('/v2/people/find?email=alex%40alexmaccaw.com&subscribe=true')
         .reply(200, alex);
       return Person.find({email: 'alex@alexmaccaw.com', subscribe: true});
     });
 
     it('can handle queued requests', function () {
       mock
-        .get('/v1/people/find?email=alex%40alexmaccaw.com')
+        .get('/v2/people/find?email=alex%40alexmaccaw.com')
         .reply(202, {
           error: {
             type: 'queued'
@@ -54,7 +54,7 @@ describe('Person', function () {
 
     it('can handle unknown records', function () {
       mock
-        .get('/v1/people/find?email=bademail%40unknown.com')
+        .get('/v2/people/find?email=bademail%40unknown.com')
         .reply(404, {
           error: {
             type: 'unknown_record'
@@ -70,7 +70,7 @@ describe('Person', function () {
 
     it('can find a person by email', function () {
       mock
-        .get('/v1/combined/find?email=alex%40alexmaccaw.com')
+        .get('/v2/combined/find?email=alex%40alexmaccaw.com')
         .reply(200, {
           person: alex,
           company: company
@@ -86,7 +86,7 @@ describe('Person', function () {
 
     it('can handle queued requests', function () {
       mock
-        .get('/v1/combined/find?email=alex%40alexmaccaw.com')
+        .get('/v2/combined/find?email=alex%40alexmaccaw.com')
         .reply(202, {
           error: {
             type: 'queued'

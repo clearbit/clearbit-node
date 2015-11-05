@@ -4,7 +4,7 @@ var assert   = require('assert');
 var resource = require('../resource');
 var _        = require('lodash');
 
-exports.Company = resource.create('Company', {api: 'company'})
+exports.Company = resource.create('Company', {api: 'company', version: 2})
   .extend({
     flag: function(options){
       return this.constructor.post('/companies/' + this.id + '/flag', options);

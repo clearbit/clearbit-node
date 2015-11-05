@@ -21,7 +21,7 @@ describe('Company', function () {
 
     it('can find a company by domain', function () {
       mock
-        .get('/v1/companies/find?domain=uber.com')
+        .get('/v2/companies/find?domain=uber.com')
         .reply(200, company);
       return Company.find({domain: 'uber.com'})
         .then(function (company) {
@@ -32,9 +32,8 @@ describe('Company', function () {
     });
 
     it('can handle queued requests', function () {
-
       mock
-        .get('/v1/companies/find?domain=uber.com')
+        .get('/v2/companies/find?domain=uber.com')
         .reply(202, {
           error: {
             type: 'queued'
@@ -46,7 +45,7 @@ describe('Company', function () {
 
     it('can handle unknown records', function () {
       mock
-        .get('/v1/companies/find?domain=nonexistent.co')
+        .get('/v2/companies/find?domain=nonexistent.co')
         .reply(404, {
           error: {
             type: 'unknown_record'
