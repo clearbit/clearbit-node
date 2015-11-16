@@ -2,7 +2,6 @@
 
 var assert   = require('assert');
 var resource = require('./resource');
-var _        = require('lodash');
 var Company  = require('./enrichment/company');
 var Person   = require('./enrichment/person');
 

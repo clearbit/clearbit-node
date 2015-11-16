@@ -2,7 +2,6 @@
 
 var assert   = require('assert');
 var resource = require('../resource');
-var _        = require('lodash');
 
 exports.Person = resource.create('Person', {api: 'person', version: 2})
   .extend({
