@@ -2,11 +2,10 @@
 
 var assert   = require('assert');
 var resource = require('./resource');
-var _        = require('lodash');
 var Company  = require('./enrichment/company');
 var Person   = require('./enrichment/person');
 
-exports.Enrichment = resource.create('Enrichment', {api: 'person'})
+exports.Enrichment = resource.create('Enrichment', {api: 'person', version: 2})
   .extend(null, {
     find: function(options){
       options = options || {};
@@ -16,10 +15,7 @@ exports.Enrichment = resource.create('Enrichment', {api: 'person'})
 
       assert(options.email, 'An email must be provided');
 
-      return this.get(
-        '/combined/email/' + options.email,
-        _.omit(options, 'email')
-      );
+      return this.get('/combined/find', options);
     },
 
     Company: Company,

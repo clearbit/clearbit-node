@@ -2,9 +2,8 @@
 
 var assert   = require('assert');
 var resource = require('../resource');
-var _        = require('lodash');
 
-exports.Company = resource.create('Company', {api: 'company'})
+exports.Company = resource.create('Company', {api: 'company', version: 2})
   .extend({
     flag: function(options){
       return this.constructor.post('/companies/' + this.id + '/flag', options);
@@ -15,9 +14,6 @@ exports.Company = resource.create('Company', {api: 'company'})
       options = options || {};
       assert(options.domain, 'A domain must be provided');
 
-      return this.get(
-        '/companies/domain/' + options.domain,
-        _.omit(options, 'domain')
-      );
+      return this.get('/companies/find', options);
     }
   });

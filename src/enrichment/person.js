@@ -2,9 +2,8 @@
 
 var assert   = require('assert');
 var resource = require('../resource');
-var _        = require('lodash');
 
-exports.Person = resource.create('Person', {api: 'person'})
+exports.Person = resource.create('Person', {api: 'person', version: 2})
   .extend({
     flag: function(options){
       return this.constructor.post('/people/' + this.id + '/flag', options);
@@ -15,9 +14,6 @@ exports.Person = resource.create('Person', {api: 'person'})
       options = options || {};
       assert(options.email, 'An email must be provided');
 
-      return this.get(
-        '/people/email/' + options.email,
-        _.omit(options, 'email')
-      );
+      return this.get('/people/find', options);
     }
   });
