@@ -3,7 +3,6 @@
 var expect     = require('chai').use(require('chai-as-promised')).expect;
 var nock       = require('nock');
 var Person     = require('../')('k').Person;
-var Enrichment = require('../')('k').Enrichment;
 
 describe('Person', function () {
 
@@ -17,7 +16,6 @@ describe('Person', function () {
   });
 
   var alex = require('./fixtures/person');
-  var company = require('./fixtures/company');
 
   describe('Person#find', function () {
 
@@ -65,37 +63,4 @@ describe('Person', function () {
     });
 
   });
-
-  describe('Enrichment#find', function () {
-
-    it('can find a person by email', function () {
-      mock
-        .get('/v2/combined/find?email=alex%40alexmaccaw.com')
-        .reply(200, {
-          person: alex,
-          company: company
-        });
-      return Enrichment.find({email: 'alex@alexmaccaw.com'})
-        .then(function (personCompany) {
-          expect(personCompany)
-            .to.be.an.instanceOf(Enrichment)
-            .and.have.include.keys('person', 'company')
-            .and.have.deep.property('person.id', alex.id);
-        });
-    });
-
-    it('can handle queued requests', function () {
-      mock
-        .get('/v2/combined/find?email=alex%40alexmaccaw.com')
-        .reply(202, {
-          error: {
-            type: 'queued'
-          }
-        });
-      return expect(Enrichment.find({email: 'alex@alexmaccaw.com'}))
-        .to.be.rejectedWith(Enrichment.QueuedError);
-    });
-
-  });
-
 });
