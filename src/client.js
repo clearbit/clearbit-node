@@ -21,6 +21,7 @@ function ClearbitClient (config) {
   this.Enrichment = require('./enrichment').Enrichment(this);
   this.Discovery = require('./discovery').Discovery(this);
   this.Prospector = require('./prospector').Prospector(this);
+  this.Risk = require('./risk').Risk(this);
   this.Watchlist = require('./watchlist').Watchlist(this);
   this.WatchlistCandidate = require('./watchlist').WatchlistCandidate(this);
   this.WatchlistEntity = require('./watchlist').WatchlistEntity(this);
