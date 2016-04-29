@@ -3,7 +3,7 @@
 var resource = require('./resource');
 
 exports.Risk = resource.create('Risk', {
-  api: 'Risk'
+  api: 'risk'
 })
 .extend(null, {
   calculate: function(options) {

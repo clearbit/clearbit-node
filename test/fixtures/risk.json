@@ -1,0 +1,24 @@
+{
+  "email": {
+    "valid": true,
+    "socialMatch": true,
+    "companyMatch": true,
+    "nameMatch": null,
+    "disposable": false,
+    "freeProvider": false,
+    "confirmed": false,
+    "blacklisted": false
+  },
+  "address": {
+    "geoMatch": null
+  },
+  "ip": {
+    "proxy": false,
+    "geoMatch": null,
+    "blacklisted": false
+  },
+  "risk": {
+    "level": "low",
+    "score": 0
+  }
+}
