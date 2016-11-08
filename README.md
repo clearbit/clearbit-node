@@ -27,6 +27,7 @@ var clearbit = new Client({key: 'api_key'});
   * `webhook_id` *String*: Custom identifier for the webhook request
   * `subscribe` *Boolean*: Set to `true` to subscribe to the changes
   * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.com/docs?shell#streaming) instead of webhooks
+  * `timeout` *Integer*: The timeout in milliseconds after which a socket closed error will be thrown.
 
 ```js
 var Person = clearbit.Person;
@@ -51,6 +52,7 @@ Person.find({email: 'email@domain.com'})
   * `domain` *String*: The company domain to look up **(required)**
   * `webhook_id` *String*: Custom identifier for the webhook request
   * `stream` *Boolean*: Set to `true` to use the [streaming API](https://clearbit.com/docs?shell#streaming) instead of webhooks
+  * `timeout` *Integer*: The timeout in milliseconds after which a socket closed error will be thrown.
 
 ```js
 var Company = clearbit.Company;

@@ -59,6 +59,12 @@ ClearbitClient.prototype.request = function (options) {
     method: 'get'
   });
 
+  if (options.timeout) {
+    var timeout = options.timeout;
+  } else {
+    var timeout = options.stream ? 60000 : 10000;
+  }
+
   return needle.requestAsync(
     options.method,
     this.url(options),
@@ -66,7 +72,7 @@ ClearbitClient.prototype.request = function (options) {
     {
       json: options.json,
       headers: options.headers,
-      timeout: options.stream ? 60000 : 10000,
+      timeout: timeout,
       username: this.key,
       password: '',
       user_agent: 'ClearbitNode/v' + pkg.version
