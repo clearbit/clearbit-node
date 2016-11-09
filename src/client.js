@@ -59,11 +59,7 @@ ClearbitClient.prototype.request = function (options) {
     method: 'get'
   });
 
-  if (options.timeout) {
-    var timeout = options.timeout;
-  } else {
-    var timeout = options.stream ? 60000 : 10000;
-  }
+  var timeout = options.timeout || options.stream && 60000 || 10000;
 
   return needle.requestAsync(
     options.method,

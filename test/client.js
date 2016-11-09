@@ -105,8 +105,8 @@ describe('Client', function () {
 
       return client
         .request(clientRequestOptions)
-        .then(() => needle.request.firstCall.args[3])
-        .finally(() => needle.request.restore());
+        .then(function() { return needle.request.firstCall.args[3]; })
+        .finally(function() { return needle.request.restore(); });
     }
 
     it('can specify a custom timeout for a request', function () {
@@ -114,14 +114,14 @@ describe('Client', function () {
         api: 'person',
         timeout: 30000
       })
-      .then((needleOptions) => {
+      .then(function(needleOptions) {
         expect(needleOptions).to.have.property('timeout', 30000);
       });
     });
 
     it('sets the default timeout to 10 seconds', function () {
       return requestWithOptions({ api: 'person' })
-      .then((needleOptions) => {
+      .then(function(needleOptions) {
         expect(needleOptions).to.have.property('timeout', 10000);
       });
     });
@@ -132,7 +132,7 @@ describe('Client', function () {
         api: 'person',
         stream: true
       })
-      .then((needleOptions) => {
+      .then(function(needleOptions) {
         expect(needleOptions).to.have.property('timeout', 60000);
       });
     });
@@ -143,7 +143,7 @@ describe('Client', function () {
         stream: true,
         timeout: 30000
       })
-      .then((needleOptions) => {
+      .then(function(needleOptions) {
         expect(needleOptions).to.have.property('timeout', 30000);
       });
     });
