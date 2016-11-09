@@ -100,18 +100,51 @@ describe('Client', function () {
       });
     });
 
-    it('uses a timeout of 60 seconds for streaming requests', function () {
+    function requestWithOptions(clientRequestOptions) {
       sinon.stub(needle, 'request').yieldsAsync(null, {}, undefined);
-      return client.request({
+
+      return client
+        .request(clientRequestOptions)
+        .then(function() { return needle.request.firstCall.args[3]; })
+        .finally(function() { return needle.request.restore(); });
+    }
+
+    it('can specify a custom timeout for a request', function () {
+      return requestWithOptions({
+        api: 'person',
+        timeout: 30000
+      })
+      .then(function(needleOptions) {
+        expect(needleOptions).to.have.property('timeout', 30000);
+      });
+    });
+
+    it('sets the default timeout to 10 seconds', function () {
+      return requestWithOptions({ api: 'person' })
+      .then(function(needleOptions) {
+        expect(needleOptions).to.have.property('timeout', 10000);
+      });
+    });
+
+
+    it('uses a default timeout of 60 seconds for streaming requests', function () {
+      return requestWithOptions({
         api: 'person',
         stream: true
       })
-      .then(function () {
-        expect(needle.request.firstCall.args[3])
-          .to.have.property('timeout', 60000);
+      .then(function(needleOptions) {
+        expect(needleOptions).to.have.property('timeout', 60000);
+      });
+    });
+
+    it('can specify a custom timeout for streaming requests', function () {
+      return requestWithOptions({
+        api: 'person',
+        stream: true,
+        timeout: 30000
       })
-      .finally(function () {
-        needle.request.restore();
+      .then(function(needleOptions) {
+        expect(needleOptions).to.have.property('timeout', 30000);
       });
     });
 

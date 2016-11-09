@@ -111,7 +111,7 @@ function extractParams (options) {
   var params = _.omit(options || {},
     'path', 'method', 'params',
     'client', 'api', 'stream',
-    'headers'
+    'headers', 'timeout'
   );
 
   return _.isEmpty(params) ? null : params;

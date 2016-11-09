@@ -38,6 +38,13 @@ describe('Person', function () {
       return Person.find({email: 'alex@alexmaccaw.com', subscribe: true});
     });
 
+    it('removes non query options from the url', function () {
+      mock
+        .get('/v2/people/find?email=alex%40alexmaccaw.com')
+        .reply(200, alex);
+      return Person.find({email: 'alex@alexmaccaw.com', timeout: 10000});
+    });
+
     it('can handle queued requests', function () {
       mock
         .get('/v2/people/find?email=alex%40alexmaccaw.com')
