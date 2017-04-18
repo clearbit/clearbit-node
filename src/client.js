@@ -18,6 +18,7 @@ function ClearbitClient (config) {
 
   this.Company = require('./enrichment/company').Company(this);
   this.Person = require('./enrichment/person').Person(this);
+  this.PersonId = require('./enrichment/person_by_id').PersonId(this);
   this.Enrichment = require('./enrichment').Enrichment(this);
   this.Discovery = require('./discovery').Discovery(this);
   this.Prospector = require('./prospector').Prospector(this);
