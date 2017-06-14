@@ -7,7 +7,7 @@ exports.Risk = resource.create('Risk', {
 })
 .extend(null, {
   calculate: function(options) {
-    return this.get('/calculate', options);
+    return this.post('/calculate', options);
   },
 
   flag: function(options) {
