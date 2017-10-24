@@ -71,6 +71,26 @@ Company.find({domain: 'www.uber.com'})
   });
 ```
 
+### NameToDomain
+
+#### `NameToDomain.find(options)` -> `Promise`
+  * `name` *String*: The company name to look up **(required)**
+  * `timeout` *Integer*: The timeout in milliseconds after which a socket closed error will be thrown.
+
+```js
+var NameToDomain = clearbit.NameToDomain;
+NameToDomain.find({name: 'Uber'})
+  .then(function (result) {
+    console.log('Domain: ', result.domain);
+  })
+  .catch(NameToDomain.NotFoundError, function (err) {
+    console.log(err); // Domain could not be found
+  })
+  .catch(function (err) {
+    console.log('Bad/invalid request, unauthorized, Clearbit error, or failed request');
+  });
+```
+
 ### Error Handling
 Lookups return [Bluebird](https://github.com/petkaantonov/bluebird) promises. Any status code >=400 will trigger an error, including lookups than do not return a result. You can easily filter out unknown records from true errors using [Bluebird's error class matching](https://github.com/petkaantonov/bluebird/blob/master/API.md#catchfunction-errorclassfunction-predicate-function-handler---promise):
 

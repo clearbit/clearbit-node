@@ -21,7 +21,7 @@ describe('Risk', function () {
 
     it('can calculate risk', function () {
       mock
-        .get('/v1/calculate?email=alex%40clearbit.com&ip=127.0.0.1')
+        .post('/v1/calculate')
         .reply(200, fixture);
 
       return Risk.calculate({email: 'alex@clearbit.com', ip: '127.0.0.1'})
