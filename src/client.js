@@ -62,6 +62,7 @@ ClearbitClient.prototype.request = function (options) {
 
   var timeout = options.timeout || options.stream && 60000 || 10000;
 
+  var that = this;
   return needle.requestAsync(
     options.method,
     this.url(options),
@@ -75,10 +76,10 @@ ClearbitClient.prototype.request = function (options) {
       user_agent: 'ClearbitNode/v' + pkg.version
     }
   )
-  .spread((response, body) => {
+  .spread(function (response, body) {
     if (response.statusCode === 202 || response.statusCode >= 400) {
       var message = body.error ? body.error.message : http.STATUS_CODES[response.statusCode] || 'Unknown';
-      throw _.extend(new this.ClearbitError(message), {
+      throw _.extend(new that.ClearbitError(message), {
         type: body.error ? body.error.type : 'unknown',
         body: body,
         statusCode: response.statusCode
