@@ -16,12 +16,11 @@ ClearbitResource.get = function (path, options) {
   }, this.options, options);
 
   return this.client.request(options)
-    .bind(this)
-    .then(cast)
-    .catch(isQueued, function () {
+    .then(result => cast(result, this))
+    .catch(isQueued, () => {
       throw new this.QueuedError(this.name + ' lookup queued');
     })
-    .catch(isUnknownRecord, function () {
+    .catch(isUnknownRecord, () => {
       throw new this.NotFoundError(this.name + ' not found');
     });
 };
@@ -35,9 +34,8 @@ ClearbitResource.post = function (path, options) {
   }, this.options, options);
 
   return this.client.request(options)
-    .bind(this)
-    .then(cast)
-    .catch(isUnknownRecord, function () {
+    .then(result => cast(result, this))
+    .catch(isUnknownRecord, () => {
       throw new this.NotFoundError(this.name + ' not found');
     });
 };
@@ -49,9 +47,8 @@ ClearbitResource.del = function (path, options) {
   }, this.options, options);
 
   return this.client.request(options)
-    .bind(this)
-    .then(cast)
-    .catch(isUnknownRecord, function () {
+    .then(result => cast(result, this))
+    .catch(isUnknownRecord, () => {
       throw new this.NotFoundError(this.name + ' not found');
     });
 };
@@ -85,11 +82,11 @@ exports.create = function (name, options) {
   });
 };
 
-function cast (data) {
+function cast (data, Constructor) {
   /* jshint validthis:true */
-  return !Array.isArray(data) ? new this(data) : data.map(function (result) {
-    return new this(result);
-  }, this);
+  return !Array.isArray(data) ? new Constructor(data) : data.map(function (result) {
+    return new Constructor(result);
+  });
 }
 
 function isQueued (err) {

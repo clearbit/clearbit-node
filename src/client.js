@@ -75,8 +75,7 @@ ClearbitClient.prototype.request = function (options) {
       user_agent: 'ClearbitNode/v' + pkg.version
     }
   )
-  .bind(this)
-  .spread(function (response, body) {
+  .spread((response, body) => {
     if (response.statusCode === 202 || response.statusCode >= 400) {
       var message = body.error ? body.error.message : http.STATUS_CODES[response.statusCode] || 'Unknown';
       throw _.extend(new this.ClearbitError(message), {
