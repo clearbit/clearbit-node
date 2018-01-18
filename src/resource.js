@@ -15,14 +15,16 @@ ClearbitResource.get = function (path, options) {
     query: extractParams(options)
   }, this.options, options);
 
+  var that = this;
   return this.client.request(options)
-    .bind(this)
-    .then(cast)
+    .then(function (result) {
+      return cast(result, that);
+    })
     .catch(isQueued, function () {
-      throw new this.QueuedError(this.name + ' lookup queued');
+      throw new that.QueuedError(that.name + ' lookup queued');
     })
     .catch(isUnknownRecord, function () {
-      throw new this.NotFoundError(this.name + ' not found');
+      throw new that.NotFoundError(that.name + ' not found');
     });
 };
 
@@ -34,11 +36,13 @@ ClearbitResource.post = function (path, options) {
     body:   extractParams(options)
   }, this.options, options);
 
+  var that = this;
   return this.client.request(options)
-    .bind(this)
-    .then(cast)
+    .then(function (result) {
+      return cast(result, that);
+    })
     .catch(isUnknownRecord, function () {
-      throw new this.NotFoundError(this.name + ' not found');
+      throw new that.NotFoundError(that.name + ' not found');
     });
 };
 
@@ -48,11 +52,13 @@ ClearbitResource.del = function (path, options) {
     method: 'delete'
   }, this.options, options);
 
+  var that = this;
   return this.client.request(options)
-    .bind(this)
-    .then(cast)
+    .then(function (result) {
+      return cast(result, that);
+    })
     .catch(isUnknownRecord, function () {
-      throw new this.NotFoundError(this.name + ' not found');
+      throw new that.NotFoundError(that.name + ' not found');
     });
 };
 
@@ -85,11 +91,11 @@ exports.create = function (name, options) {
   });
 };
 
-function cast (data) {
+function cast (data, Constructor) {
   /* jshint validthis:true */
-  return !Array.isArray(data) ? new this(data) : data.map(function (result) {
-    return new this(result);
-  }, this);
+  return !Array.isArray(data) ? new Constructor(data) : data.map(function (result) {
+    return new Constructor(result);
+  });
 }
 
 function isQueued (err) {
