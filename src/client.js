@@ -82,6 +82,7 @@ ClearbitClient.prototype.request = function (options) {
       throw _.extend(new this.ClearbitError(message), {
         type: body.error ? body.error.type : 'unknown',
         body: body,
+        headers: response.headers,
         statusCode: response.statusCode
       });
     }
