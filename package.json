@@ -1,6 +1,6 @@
 {
   "name": "clearbit",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Client for Clearbit.co business intelligence APIs",
   "main": "./src",
   "scripts": {
@@ -24,7 +24,7 @@
   "dependencies": {
     "bluebird": "2",
     "create-error": "0.3",
-    "needle": "clearbit/needle#ea566981076fb1f3864e4d736f522831364333ae",
+    "needle": "clearbit/needle#84d28b5f2c3916db1e7eb84aeaa9d976cc40054b",
     "lodash": "2"
   },
   "devDependencies": {
