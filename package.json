@@ -1,6 +1,6 @@
 {
   "name": "clearbit",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Client for Clearbit.co business intelligence APIs",
   "main": "./src",
   "scripts": {
