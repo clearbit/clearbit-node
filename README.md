@@ -117,3 +117,8 @@ Person.find({email: 'email@domain.com'}).nodeify(function (err, person) {
   }
 });
 ```
+
+
+### Debugging
+
+To get additional debug logs through `needle`, the HTTP library that the client uses, set `process.env.CLEARBIT_DEBUG` to true.

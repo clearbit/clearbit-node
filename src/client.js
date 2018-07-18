@@ -72,6 +72,7 @@ ClearbitClient.prototype.request = function (options) {
       timeout: timeout,
       username: this.key,
       password: '',
+      printDebugLogs: process.env.CLEARBIT_DEBUG || false,
       user_agent: 'ClearbitNode/v' + pkg.version
     }
   )
