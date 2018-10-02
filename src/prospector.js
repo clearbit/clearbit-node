@@ -2,7 +2,7 @@
 
 var resource = require('./resource');
 
-exports.Prospector = resource.create('Prospector', {api: 'prospector'})
+exports.Prospector = resource.create('Prospector', {api: 'prospector', version: 2})
   .extend({
     getEmail: function (){
       return this.getEmailResponse().then(function(resp){
