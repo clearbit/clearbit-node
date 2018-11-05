@@ -24,7 +24,7 @@ describe('Prospector', function () {
       var response = { page: 1, page_size: 5, total: 0, results: [] };
 
       mock
-        .get('/v2/people/search?domain=' + domain)
+        .get('/v1/people/search?domain=' + domain)
         .reply(200, response);
 
       return Prospector.search({ domain: domain })
@@ -40,7 +40,7 @@ describe('Prospector', function () {
       var response = { page: 2, page_size: 10, total: 0, results: [] };
 
       mock
-        .get('/v2/people/search?domain=' + domain + '&page=2&page_size=10')
+        .get('/v1/people/search?domain=' + domain + '&page=2&page_size=10')
         .reply(200, response);
 
       return Prospector.search({ domain: domain, page: 2, page_size: 10 })
@@ -57,7 +57,7 @@ describe('Prospector', function () {
 
     it('can find an e-mail by ID', function () {
       mock
-        .get('/v2/people/' + id + '/email')
+        .get('/v1/people/' + id + '/email')
         .reply(200, response);
 
       return new Prospector({ id: id }).getEmail()
@@ -73,7 +73,7 @@ describe('Prospector', function () {
 
     it('can find an e-mail by ID', function () {
       mock
-        .get('/v2/people/' + id + '/email')
+        .get('/v1/people/' + id + '/email')
         .reply(200, response);
 
       return new Prospector({ id: id }).getVerified()
