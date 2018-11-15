@@ -91,6 +91,38 @@ NameToDomain.find({name: 'Uber'})
   });
 ```
 
+### Prospector
+
+#### `Prospector.search(options)` -> `Promise`
+  * `domain` *String*: The domain to search for. **(required)**
+  * `role` *String*: Employment role to filter by.
+  * `roles` *Array[String]*: Employment roles to filter by.
+  * `seniority` *String*: Employment seniority to filter by.
+  * `seniorities` *Array[String]*: Employment seniorities to filter by.
+  * `title` *String*: Job title to filter by.
+  * `titles` *Array[String]*: Job titles to filter by.
+  * `city` *String*: City to filter by.
+  * `cities` *Array[String]*: Cities to filter by.
+  * `state` *String*: State to filter by.
+  * `states` *Array[String]*: States to filter by.
+  * `country` *String*: Country to filter by.
+  * `countries` *Array[String]*: Countries to filter by.
+  * `name` *String*: Name of an individual to filter by.
+  * `page` *Integer*: The page of results to fetch.
+  * `page_size` *Integer*: The number of results per page.
+  * `suppression` *String*: Set to `eu` to exclude records with country data in the EU. Set to `eu_strict` to exclude records with country data in the EU or with null country data.
+
+```js
+var Prospector = clearbit.Prospector;
+Prospector.search({domain: 'clearbit.com'})
+  .then(function (result) {
+    console.log('Results: ', result.results);
+  })
+  .catch(function (err) {
+    console.log('Bad/invalid request, unauthorized, Clearbit error, or failed request');
+  });
+```
+
 ### Error Handling
 Lookups return [Bluebird](https://github.com/petkaantonov/bluebird) promises. Any status code >=400 will trigger an error, including lookups than do not return a result. You can easily filter out unknown records from true errors using [Bluebird's error class matching](https://github.com/petkaantonov/bluebird/blob/master/API.md#catchfunction-errorclassfunction-predicate-function-handler---promise):
 
