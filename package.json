@@ -24,8 +24,8 @@
   "dependencies": {
     "bluebird": "2",
     "create-error": "0.3",
-    "needle": "clearbit/needle#84d28b5f2c3916db1e7eb84aeaa9d976cc40054b",
-    "lodash": "2"
+    "lodash": "4.x",
+    "needle": "clearbit/needle#84d28b5f2c3916db1e7eb84aeaa9d976cc40054b"
   },
   "devDependencies": {
     "chai": "1",
