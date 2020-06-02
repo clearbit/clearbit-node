@@ -5,11 +5,11 @@ var _           = require('lodash');
 
 function ClearbitResource (data) {
   this.options = {};
-  _.extend(this, data);
+  _.assign(this, data);
 }
 
 ClearbitResource.get = function (path, options) {
-  options = _.extend({
+  options = _.assign({
     path:   path,
     method: 'get',
     query: extractParams(options)
@@ -27,7 +27,7 @@ ClearbitResource.get = function (path, options) {
 };
 
 ClearbitResource.post = function (path, options) {
-  options = _.extend({
+  options = _.assign({
     path:   path,
     method: 'post',
     json:   true,
@@ -43,7 +43,7 @@ ClearbitResource.post = function (path, options) {
 };
 
 ClearbitResource.del = function (path, options) {
-  options = _.extend({
+  options = _.assign({
     path:   path,
     method: 'delete'
   }, this.options, options);
@@ -66,20 +66,20 @@ exports.create = function (name, options) {
     ClearbitResource.apply(this, arguments);
   };
 
-  _.extend(Resource, ClearbitResource, createErrors(name), {
+  _.assign(Resource, ClearbitResource, createErrors(name), {
     name: name,
     options: options
   });
 
-  return _.extend(function (client) {
-    return _.extend(Resource, {
+  return _.assign(function (client) {
+    return _.assign(Resource, {
       client: client
     });
   },
   {
     extend: function (proto, ctor) {
-      _.extend(Resource.prototype, proto);
-      _.extend(Resource, ctor);
+      _.assign(Resource.prototype, proto);
+      _.assign(Resource, ctor);
       return this;
     }
   });
@@ -108,11 +108,11 @@ function createErrors (name) {
 }
 
 function extractParams (options) {
-  var params = _.omit(options || {},
+  var params = _.omit(options || {}, [
     'path', 'method', 'params',
     'client', 'api', 'stream',
     'headers', 'timeout'
-  );
+  ]);
 
   return _.isEmpty(params) ? null : params;
 }

@@ -79,7 +79,7 @@ ClearbitClient.prototype.request = function (options) {
   .spread(function (response, body) {
     if (response.statusCode === 202 || response.statusCode >= 400) {
       var message = body.error ? body.error.message : http.STATUS_CODES[response.statusCode] || 'Unknown';
-      throw _.extend(new this.ClearbitError(message), {
+      throw _.assign(new this.ClearbitError(message), {
         type: body.error ? body.error.type : 'unknown',
         body: body,
         statusCode: response.statusCode
