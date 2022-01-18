@@ -7,6 +7,10 @@ Node library for querying the [Clearbit](https://clearbit.com) business intellig
 * [Discovery API](https://clearbit.com/docs#discovery-api)
 * [Watchlist API](https://clearbit.com/docs#watchlist-api)
 
+## Maintenance Status
+
+This repository is currently not actively maintained. If you're looking to integrate with Clearbit's API we recommend looking at the HTTP requests available in our documentation at [clearbit.com/docs](https://clearbit.com/docs)
+
 ## Setup
 ```bash
 $ npm install clearbit
