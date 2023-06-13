@@ -1,3 +1,7 @@
+## ⚠️ DEPRECATION WARNING
+
+This package is no longer being maintained. If you're looking to integrate with Clearbit's API we recommend looking at the HTTP requests available in our documentation at [clearbit.com/docs](https://clearbit.com/docs)
+
 clearbit-node [![Build Status](https://travis-ci.org/clearbit/clearbit-node.svg?branch=master)](https://travis-ci.org/clearbit/clearbit-node) [![Code Climate](https://codeclimate.com/github/clearbit/clearbit-node/badges/gpa.svg)](https://codeclimate.com/github/clearbit/clearbit-node) [![Test Coverage](https://codeclimate.com/github/clearbit/clearbit-node/badges/coverage.svg)](https://codeclimate.com/github/clearbit/clearbit-node)
 =============
 
@@ -6,10 +10,6 @@ Node library for querying the [Clearbit](https://clearbit.com) business intellig
 * [Enrichment API](https://clearbit.com/docs#enrichment-api)
 * [Discovery API](https://clearbit.com/docs#discovery-api)
 * [Watchlist API](https://clearbit.com/docs#watchlist-api)
-
-## Maintenance Status
-
-This repository is currently not actively maintained. If you're looking to integrate with Clearbit's API we recommend looking at the HTTP requests available in our documentation at [clearbit.com/docs](https://clearbit.com/docs)
 
 ## Setup
 ```bash
